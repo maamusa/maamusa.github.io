@@ -16,6 +16,7 @@ const postsCollection = defineCollection({
       alt: z.string(),
     }),
     readingTime: z.number().optional(),
+    external_url: z.string().optional(),
   }),
 });
 // Export a single `collections` object to register your collection(s)

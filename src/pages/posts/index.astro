@@ -26,7 +26,8 @@ for (const post of posts) {
       {
         posts.map((post) => (
           <a
-            href={`/posts/${post.id}`}
+            href={post.data.external_url ? post.data.external_url : `/posts/${post.id}`}
+            target={post.data.external_url ? "_blank" : "_self"}
             class=" sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 post"
           >
             <Image

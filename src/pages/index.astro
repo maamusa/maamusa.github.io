@@ -48,7 +48,8 @@ posts.splice(2)
       {
         posts.map((post) => (
           <a
-            href={`/posts/${post.id}`}
+            href={post.data.external_url ? post.data.external_url : `/posts/${post.id}`}
+            target={post.data.external_url ? "_blank" : "_self"}
             class="group block w-full post"
           >
             <div class="flex flex-col sm:flex-row sm:items-baseline justify-between w-full gap-2 sm:gap-4">
