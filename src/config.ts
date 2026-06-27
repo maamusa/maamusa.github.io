@@ -39,6 +39,30 @@ export const socialLinks: SocialLink[] = [
     url: "https://github.com/mayankmusaddi",
     icon: "mdi:github",
     external: true,
+  },
+  {
+    title: "LinkedIn",
+    url: "https://www.linkedin.com/in/mayank-musaddi-19b651172",
+    icon: "mdi:linkedin",
+    external: true,
+  },
+  {
+    title: "YouTube",
+    url: "https://www.youtube.com/@mayankmusaddi3959",
+    icon: "mdi:youtube",
+    external: true,
+  },
+  {
+    title: "Instagram",
+    url: "https://www.instagram.com/mayankmusaddi/",
+    icon: "mdi:instagram",
+    external: true,
+  },
+  {
+    title: "X",
+    url: "https://x.com/maamusa_",
+    icon: "mdi:twitter",
+    external: true,
   }
 ];
 
