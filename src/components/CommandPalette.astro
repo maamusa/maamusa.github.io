@@ -92,12 +92,7 @@ import { navBarLinks, socialLinks } from "../config";
   </div>
 </div>
 
-<style>
-  .cmd-result.active-item {
-    opacity: 1 !important;
-    background-color: rgba(128, 128, 128, 0.1);
-  }
-</style>
+
 
 <script is:inline>
   const trigger = document.getElementById('cmd-k-trigger');
@@ -115,10 +110,12 @@ import { navBarLinks, socialLinks } from "../config";
   function renderActiveItem() {
     visibleResults.forEach((el, index) => {
       if (index === activeIndex) {
-        el.classList.add('active-item');
+        el.classList.add('bg-black/10', 'dark:bg-white/10');
+        el.classList.remove('opacity-70');
         el.scrollIntoView({ block: 'nearest' });
       } else {
-        el.classList.remove('active-item');
+        el.classList.remove('bg-black/10', 'dark:bg-white/10');
+        el.classList.add('opacity-70');
       }
     });
   }
