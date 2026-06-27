@@ -1,6 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
 import { navBarLinks, socialLinks } from "../config";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts");
+const projects = await getCollection("projects");
 ---
 
 <button
@@ -60,6 +64,38 @@ import { navBarLinks, socialLinks } from "../config";
           >
             <Icon name="mdi:file-document-outline" width={18} height={18} />
             <span>{link.title}</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Posts -->
+      <div class="cmd-section">
+        <div class="text-[10px] font-bold opacity-40 px-5 py-2 mt-2 uppercase tracking-widest">Posts</div>
+        {posts.map((post) => (
+          <a
+            href={`/posts/${post.id}`}
+            class="cmd-result flex items-center gap-3 px-5 py-3 cursor-pointer text-[var(--text-color)] opacity-70 hover:opacity-100 transition-all"
+            data-title={post.data.title.toLowerCase()}
+            data-action="link"
+          >
+            <Icon name="mdi:text-box-outline" width={18} height={18} />
+            <span class="truncate">{post.data.title}</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Projects -->
+      <div class="cmd-section">
+        <div class="text-[10px] font-bold opacity-40 px-5 py-2 mt-2 uppercase tracking-widest">Projects</div>
+        {projects.map((project) => (
+          <a
+            href={`/projects/${project.id}`}
+            class="cmd-result flex items-center gap-3 px-5 py-3 cursor-pointer text-[var(--text-color)] opacity-70 hover:opacity-100 transition-all"
+            data-title={project.data.title.toLowerCase()}
+            data-action="link"
+          >
+            <Icon name="mdi:rocket-launch-outline" width={18} height={18} />
+            <span class="truncate">{project.data.title}</span>
           </a>
         ))}
       </div>
