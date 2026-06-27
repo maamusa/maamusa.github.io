@@ -4,6 +4,8 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { navBarLinks, identity } from "../config";
 import type { SEOInfo } from "../types/config";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import CommandPalette from "../components/CommandPalette.astro";
 
 interface Props {
   seo: SEOInfo;
@@ -54,6 +56,20 @@ const { seo } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
     <meta property="og:title" content={seo.title} />
@@ -118,14 +134,9 @@ const { seo } = Astro.props;
             </div>
           </div>
         </nav>
-        <div>
-          <a
-            href=`mailto:${identity.email}`
-            class="block p-2 opacity-60 hover:opacity-100 transition-opacity"
-            aria-label="Email"
-          >
-            <Icon name="mdi:email" width={20} height={20} />
-          </a>
+        <div class="flex items-center gap-1">
+          <ThemeToggle />
+          <CommandPalette />
         </div>
       </div>
     </header>

@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  id="theme-toggle"
+  class="block p-2 opacity-60 hover:opacity-100 transition-opacity"
+  aria-label="Toggle between light and dark theme"
+>
+  <div class="dark:hidden">
+    <Icon name="mdi:weather-sunny" width={20} height={20} />
+  </div>
+  <div class="hidden dark:block">
+    <Icon name="mdi:weather-night" width={20} height={20} />
+  </div>
+</button>
+
+<script is:inline>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+    const newTheme = isDark ? 'light' : 'dark';
+
+    localStorage.setItem('theme', newTheme);
+    if (newTheme === 'dark') {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+  }
+
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+</script>

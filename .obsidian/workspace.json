@@ -183,8 +183,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "bcf61f86bee1a96f",
+  "active": "9c63fba4cff94752",
   "lastOpenFiles": [
+    "src/components/CommandPalette.astro",
+    "src/components/ThemeToggle.astro",
     "src/content/posts/do-not-go-gentle-into-that-good-night.md",
     "src/content/posts/mediated-reality.md",
     "dist/index.html",
@@ -196,7 +198,6 @@
     "dist/projects/football-tracker/index.html",
     "dist/projects/cipher-forces/index.html",
     "dist/projects/hyperbolic-spatial-transcriptomics/index.html",
-    "dist/projects/felicity-app/index.html",
     "dist/media/netrex.png",
     "dist/media/netrex.gif",
     "dist/media/model.png",
