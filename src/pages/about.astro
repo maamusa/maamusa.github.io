@@ -18,22 +18,7 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
     <div class="mb-14">
       <Fragment set:html={pageDescription} />
     </div>
-    <div class="flex flex-col min-[410px]:flex-row">
-      <Image
-        src={aboutPageContent.about.image_l.url}
-        alt={aboutPageContent.about.image_l.alt}
-        width={350}
-        height={250}
-        class="w-[350px] h-[250px] object-cover rounded-xl -rotate-6"
-      />
-      <Image
-        src={aboutPageContent.about.image_r.url}
-        alt={aboutPageContent.about.image_r.alt}
-        width={150}
-        height={250}
-        class="w-[150px] h-[250px] object-cover rounded-xl rotate-6 mx-auto sm:ml-auto"
-      />
-    </div>
+
   </section>
   <section class="my-20 mt-32 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
     <h2 class="mb-8 sm:mb-0 opacity-60">Work</h2>
