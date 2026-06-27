@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "019b0cfd92cc584b",
+        "id": "f254fb5f98970c33",
         "type": "tabs",
         "children": [
           {
-            "id": "bcf61f86bee1a96f",
+            "id": "66341ab91401209b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/content/posts/monthly-news-mayank-musaddi.md",
-                "mode": "preview",
+                "file": "src/content/drafts/Untitled.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "monthly-news-mayank-musaddi"
+              "title": "Untitled"
             }
           }
         ]
@@ -183,9 +183,26 @@
       "bases:Create new base": false
     }
   },
-  "active": "bcf61f86bee1a96f",
+  "active": "66341ab91401209b",
   "lastOpenFiles": [
+    "src/content/posts/Untitled.md",
+    "src/content/drafts/Untitled.md",
+    "src/content/posts/open-ended-movies.md",
     "src/content/posts/mediated-reality.md",
+    "src/content/posts/elevate-your-app-with-a-chat-copilot.md",
+    "src/content/posts/do-not-go-gentle-into-that-good-night.md",
+    "src/content/drafts/monthly-news-mayank-musaddi.md",
+    "src/content/_templates/Blog Template.md",
+    "src/content/_templates/blog-template.md",
+    "Templates/Blog Template.md",
+    "src/content/_templates",
+    "src/content/drafts",
+    "src/content/projects/blockchain.md",
+    "Templates",
+    "README.md",
+    "AGENTS.md",
+    "src/content/posts/monthly-news-mayank-musaddi.md",
+    "src/content/posts/unlocking-the-power-of-language.md",
     "src/content/projects/shell-and-databases.md",
     "dist/index.html",
     "dist/projects/index.html",
@@ -194,9 +211,6 @@
     "dist/projects/plane-simulation/index.html",
     "dist/projects/plane-simulation",
     "dist/projects/netrex/index.html",
-    "dist/projects/knowledge-distillation/index.html",
-    "dist/projects/hyperbolic-spatial-transcriptomics/index.html",
-    "dist/projects/football-tracker/index.html",
     "dist/media/model.png",
     "dist/media/netrex.png",
     "dist/media/netrex.gif",
@@ -207,15 +221,9 @@
     "dist/demo-1.jpg",
     "dist/assets/projects/9.jpg",
     "dist/assets/projects/8.gif",
-    "src/content/posts/monthly-news-mayank-musaddi.md",
-    "src/content/posts/elevate-your-app-with-a-chat-copilot.md",
-    "src/content/posts/unlocking-the-power-of-language.md",
-    "src/content/posts/do-not-go-gentle-into-that-good-night.md",
     "src/content/posts/Test 2.md",
     "src/content/posts/Test.md",
     "src/content/posts/Untitled 1.md",
-    "src/content/posts/Untitled.md",
-    "src/content/posts/do-not-go-gentle-into-that-good-night 1.md",
-    "src/content/posts/open-ended-movies.md"
+    "src/content/posts/do-not-go-gentle-into-that-good-night 1.md"
   ]
 }
