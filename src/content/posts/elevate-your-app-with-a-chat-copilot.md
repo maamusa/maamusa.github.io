@@ -1,10 +1,10 @@
 ---
 title: "Elevate Your App with a Chat Copilot: A Developer's Guide"
 description: "A developer's guide to integrating a chat copilot to elevate your application's user experience."
-pubDate: 2023-11-25
+pubDate: 2024-03-03
 author: "Mayank Musaddi"
 image:
-  url: "/demo-2.jpg"
+  url: "https://miro.medium.com/v2/resize:fit:700/1*V212VBTal3O2ZSYYB3E5Vg.jpeg"
   alt: "Chat Copilot Post Image"
 ---
 
@@ -131,56 +131,40 @@ Function Descriptions: A collection of function descriptions of all the function
 
 Here I have described a simple plugin description YAML file for the task of Dashboard generation.
 
+```yaml
 name: Dashboard Visualizer
-
 description: A plugin for displaying visual dashboards to user as per query
-
 model: gpt4-32k
-
 system_prompt: You are an assistant for a Social Media dashboard. We are 
-
 receiving a stream of data from social platforms and you need to analyse
-
 the data to offer insights to users.
-
 function_calling_model: Gorilla
-
 planning_framework: LLMCompiler
+```
+
+```yaml
 name: get_dashboard
-
-description: Creates and displays dashboard to the user after charts and filters are initialized
-
+description: fetch the dashboard data points for the given social platform for the respective duration
 schema: <Payload Schema for hitting the endpoint>
-
 dependencies: get_chart AND get_filters
-
 user_out: true
 
 name: get_chart
-
 description: Initializes chart and chart fields for a dashboard
-
 schema: <Payload Schema for hitting the endpoint>
-
 dependencies: get_report
-
 user_out: false
 
 name: get_filters
-
 description: Initializes filters for a dashboard
-
 schema: <Payload Schema for hitting the endpoint>
-
 dependencies: get_report
-
 user_out: false
 
 name: get_report
-
 description: Gets the report name based on the user query
-
 schema: <Payload Schema for hitting the endpoint>
+```
 
 ## Flow Design
 

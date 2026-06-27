@@ -1,20 +1,16 @@
 ---
 title: "Unlocking the Power of Language: Mastering Complex Tasks with LLM"
 description: "A comprehensive guide on leveraging Large Language Models (LLMs) to master complex tasks."
-pubDate: 2023-11-20
+pubDate: 2024-05-12
 author: "Mayank Musaddi"
 image:
-  url: "/demo-1.jpg"
+  url: "https://miro.medium.com/v2/resize:fit:700/1*C-P9oefA8TVTLAsNGP-BWg.jpeg"
   alt: "LLM Post Image"
 ---
-
-
 
 11 min read
 
 May 12, 2024
-
-
 
 ![Image 2](https://miro.medium.com/v2/resize:fit:700/1*C-P9oefA8TVTLAsNGP-BWg.jpeg)
 
