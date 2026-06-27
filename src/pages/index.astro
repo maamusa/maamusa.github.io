@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Link from "../components/Link.astro";
 import { homePageContent } from "../config";
 import { getCollection } from "astro:content";
 
@@ -31,6 +32,14 @@ posts.splice(2)
       <p>
         Send me a <a href="mailto:musaddi97@gmail.com">message</a> if you’d like to chat. I’m also available on <a href="https://www.linkedin.com/in/musaddi" target="_blank">LinkedIn</a> or <a href="https://www.instagram.com/mayankmusaddi/" target="_blank">Instagram</a>.
       </p>
+    </div>
+
+    <div class="flex items-center gap-4 group w-fit mb-8">
+      {
+        homePageContent.links.map((link) => (
+          <Link text={link.title} href={link.url} external={link.external} />
+        ))
+      }
     </div>
 
     <script>
