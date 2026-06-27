@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
 import { navBarLinks, identity } from "../config";
 import type { SEOInfo } from "../types/config";
 import ThemeToggle from "../components/ThemeToggle.astro";
@@ -150,14 +149,23 @@ const { seo } = Astro.props;
 <style is:global>
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+  }
+  :root.dark {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+  }
+
   html {
     font-family: "Inter", sans-serif;
-    background: #000000;
+    background: var(--bg-color);
   }
 
   * {
     -webkit-font-smoothing: antialiased;
-    color: white;
+    color: var(--text-color);
   }
 
   code {
