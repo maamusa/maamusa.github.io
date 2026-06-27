@@ -4,7 +4,7 @@ description: "Projects based on Blockchain including games and smart contracts i
 pubDate: 2023-01-01
 author: "Mayank Musaddi"
 image:
-  url: "/assets/blog-placeholder-1.jpg"
+  url: "/assets/projects/1.png"
   alt: "Placeholder image"
 ---
 

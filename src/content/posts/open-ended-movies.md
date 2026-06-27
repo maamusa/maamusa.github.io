@@ -4,7 +4,7 @@ description: "A review of open ended movies"
 pubDate: 2021-08-22
 author: "Mayank Musaddi"
 image:
-  url: "/assets/blog-placeholder-1.jpg"
+  url: "/assets/posts/ankhondekhi.jpg"
   alt: "Placeholder image"
 ---
 

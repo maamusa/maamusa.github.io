@@ -4,6 +4,6 @@ description: "A 3D plane simulation game made using OpenGL in C++ with the optio
 pubDate: 2023-01-01
 author: "Mayank Musaddi"
 image:
-  url: "/assets/blog-placeholder-1.jpg"
+  url: "/assets/projects/1.png"
   alt: "Placeholder image"
 ---

@@ -4,7 +4,7 @@ description: "A poem by Dylan Thomas"
 pubDate: 2021-08-12
 author: "Mayank Musaddi"
 image:
-  url: "/assets/blog-placeholder-1.jpg"
+  url: "/assets/posts/ankhondekhi.jpg"
   alt: "Placeholder image"
 ---
 
