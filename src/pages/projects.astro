@@ -2,6 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import { projectPageContent } from "../config";
 import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
 ---
 
 <Layout seo={projectPageContent.seo}>
@@ -10,8 +13,8 @@ import ProjectCard from "../components/ProjectCard.astro";
     <p class="opacity-60 mb-10">{projectPageContent.subtitle}</p>
     <div class="grid grid-cols-1 group">
       {
-        projectPageContent.projects.map((project: any) => (
-          <ProjectCard {...project} />
+        projects.map((project) => (
+          <ProjectCard title={project.data.title} description={project.data.description} image={project.data.image?.url || ""} url={`/projects/${project.id}`} year={project.data.pubDate.getFullYear().toString()} />
         ))
       }
     </div>
