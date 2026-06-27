@@ -77,7 +77,7 @@ export const homePageContent: HomePageContent = {
   role: "Software Developer",
   description:
     "Hi, I'm Mayank. This is my personal space where I share my thoughts, showcase my projects, and build interactive mini-games.",
-  socialLinks: socialLinks,
+  socialLinks: socialLinks.filter(link => link.title === 'GitHub'),
   links: [
     {
       title: "My Projects",
