@@ -1,10 +1,11 @@
 ---
-title: Shell and Database
-tools: [C, Python, C++]
-image: ../assets/projects/9.jpg
-description: A terminal-based shell using C supporting piping, redirection, signal handling, background and foreground process management. Also some database impementation like SQL engine and B Treess
-pubDate: '2023-01-01'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Shell and Database"
+description: "A terminal-based shell using C supporting piping, redirection, signal handling, background and foreground process management. Also some database impementation like SQL engine and B Treess"
+pubDate: 2023-01-01
+author: "Mayank Musaddi"
+image:
+  url: "/assets/blog-placeholder-1.jpg"
+  alt: "Placeholder image"
 ---
 
 # Shell Implementation

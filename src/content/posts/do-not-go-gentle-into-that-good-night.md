@@ -1,11 +1,11 @@
 ---
-title: Do not go gentle into that good night
-tags: [Poetry, Dylan Thomas]
-style: border
-color: dark
-description: 'A poem by Dylan Thomas'
-pubDate: '2021-08-12'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Do not go gentle into that good night"
+description: "A poem by Dylan Thomas"
+pubDate: 2021-08-12
+author: "Mayank Musaddi"
+image:
+  url: "/assets/blog-placeholder-1.jpg"
+  alt: "Placeholder image"
 ---
 
 Do not go gentle into that good night,  

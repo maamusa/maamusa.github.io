@@ -1,10 +1,11 @@
 ---
-title: Hyperbolic Embeddings for Spatial Transcriptomics
-tools: [GNNs, PyTorch, Numpy, MatPlotLib]
-image: ../assets/projects/4.png
-description: A hyperbolic graph neural network approach to identify hierarchies in cell types from spatial transcriptomics data obtained from seqFISH+
-pubDate: '2023-01-01'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Hyperbolic Embeddings for Spatial Transcriptomics"
+description: "A hyperbolic graph neural network approach to identify hierarchies in cell types from spatial transcriptomics data obtained from seqFISH+"
+pubDate: 2023-01-01
+author: "Mayank Musaddi"
+image:
+  url: "/assets/blog-placeholder-1.jpg"
+  alt: "Placeholder image"
 ---
 
 # Lower Dimensional Representation for Spatial Transcriptomics Data in Hyperbolic Space

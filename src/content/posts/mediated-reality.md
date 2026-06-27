@@ -1,11 +1,11 @@
 ---
-title: Mediated Reality
-tags: [Social Media, Politics, Technology]
-style: border
-color: primary
-description: With data growing in its worth, we are surrounded by a mix of virtual and real information. What is real? Can the reality that we perceive be influenced?
-pubDate: '2019-03-04'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Mediated Reality"
+description: "With data growing in its worth, we are surrounded by a mix of virtual and real information. What is real? Can the reality that we perceive be influenced?"
+pubDate: 2019-03-04
+author: "Mayank Musaddi"
+image:
+  url: "/assets/blog-placeholder-1.jpg"
+  alt: "Placeholder image"
 ---
 
 “Where the real world changes into simple images, the simple images become real beings and effective motivations of hypnotic behavior.” -Guy Debord

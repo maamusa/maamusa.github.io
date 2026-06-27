@@ -1,10 +1,11 @@
 ---
-title: Distributed Systems
-tools: [OpenMPI, PThread, C++, Erlang]
-image: ../assets/projects/11.jpg
-description: Experimenting with multithreading and applications running in a distributed setting, thus making execution faster and handling fault tolerance.
-pubDate: '2023-01-01'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Distributed Systems"
+description: "Experimenting with multithreading and applications running in a distributed setting, thus making execution faster and handling fault tolerance."
+pubDate: 2023-01-01
+author: "Mayank Musaddi"
+image:
+  url: "/assets/blog-placeholder-1.jpg"
+  alt: "Placeholder image"
 ---
 
 # Distributed Systems

@@ -1,10 +1,11 @@
 ---
-title: Block Chain
-tools: [Solidity, Smart Contracts, Hyperledger]
-image: ../assets/projects/10.jpg
-description: Projects based on Blockchain including games and smart contracts implementation with blockchain at its core, thus enhancing security, fault tolerance and distributed capability.
-pubDate: '2023-01-01'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: "Block Chain"
+description: "Projects based on Blockchain including games and smart contracts implementation with blockchain at its core, thus enhancing security, fault tolerance and distributed capability."
+pubDate: 2023-01-01
+author: "Mayank Musaddi"
+image:
+  url: "/assets/blog-placeholder-1.jpg"
+  alt: "Placeholder image"
 ---
 
 # BlockChain
