@@ -114,7 +114,7 @@ export const aboutPageContent: AboutPageContent = {
     description: `Some of my professional experience.`,
     items: [
       {
-        title: "Senior Software Engineer / SWE III",
+        title: "Senior Software Engineer",
         company: {
           name: "Google",
           image: "/logo.webp",
@@ -129,16 +129,84 @@ export const aboutPageContent: AboutPageContent = {
           image: "/logo.webp",
           url: "https://sprinklr.com",
         },
-        date: "June 2022 - Aug 2024",
+        date: "June 2022 - Sept 2024",
       },
       {
-        title: "Undergraduate Research Assistant",
+        title: "Research Assistant",
         company: {
           name: "IIIT Hyderabad",
           image: "/logo.webp",
           url: "https://www.iiit.ac.in",
         },
-        date: "May 2020 - May 2022",
+        date: "May 2019 - May 2022",
+      },
+      {
+        title: "Software Engineer",
+        company: {
+          name: "Bicycle",
+          image: "/logo.webp",
+          url: "#",
+        },
+        date: "Aug 2021 - Dec 2021",
+      },
+      {
+        title: "Machine Learning Intern",
+        company: {
+          name: "Sprinklr",
+          image: "/logo.webp",
+          url: "https://sprinklr.com",
+        },
+        date: "June 2021 - July 2021",
+      },
+      {
+        title: "Machine Learning Intern",
+        company: {
+          name: "Matchday.ai",
+          image: "/logo.webp",
+          url: "#",
+        },
+        date: "May 2019 - July 2019",
+      },
+      {
+        title: "Software Engineer",
+        company: {
+          name: "IIIT Hyderabad Product Labs",
+          image: "/logo.webp",
+          url: "https://www.iiit.ac.in",
+        },
+        date: "Aug 2018 - March 2019",
+      },
+    ],
+  },
+  education: {
+    description: `My academic background.`,
+    items: [
+      {
+        title: "Master's degree, Computational Science",
+        company: {
+          name: "IIIT Hyderabad",
+          image: "/logo.webp",
+          url: "https://www.iiit.ac.in",
+        },
+        date: "April 2021 - May 2022",
+      },
+      {
+        title: "Bachelor of Technology, Computer Science",
+        company: {
+          name: "IIIT Hyderabad",
+          image: "/logo.webp",
+          url: "https://www.iiit.ac.in",
+        },
+        date: "2017 - 2022",
+      },
+      {
+        title: "High School",
+        company: {
+          name: "Don Bosco School, Kolkata",
+          image: "/logo.webp",
+          url: "#",
+        },
+        date: "2016",
       },
     ],
   },

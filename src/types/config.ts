@@ -63,6 +63,10 @@ export type AboutPageContent = {
     description: string;
     items: ResumeItem[];
   };
+  education: {
+    description: string;
+    items: ResumeItem[];
+  };
   connect: {
     description: string;
     links: SocialLink[];

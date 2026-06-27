@@ -7,8 +7,7 @@ type Props = ResumeItem;
 const { title, company, date } = Astro.props;
 ---
 
-<a
-  href={company.url}
+<div
   class="py-3 flex items-center justify-between group-hover:opacity-60 hover:!opacity-100 transition-opacity"
 >
   <div class="flex items-center gap-4">
@@ -25,4 +24,4 @@ const { title, company, date } = Astro.props;
     </div>
   </div>
   <p class="text-sm opacity-60">{date}</p>
-</a>
+</div>
