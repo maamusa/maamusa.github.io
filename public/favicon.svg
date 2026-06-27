@@ -1,1 +1,5 @@
-File not found: /v1/AUTH_mw/wikipedia-commons-local-public.e0/e/e0/Penrose_triangle.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-150 -150 300 300" width="100%" height="100%">
+  <path fill="#1a1a1a" d="M 0,-130 L 112.6,65 L 69.3,140 L -43.3,-55 L -86.6,20 L -129.9,-55 Z" />
+  <path fill="#4d4d4d" transform="rotate(120)" d="M 0,-130 L 112.6,65 L 69.3,140 L -43.3,-55 L -86.6,20 L -129.9,-55 Z" />
+  <path fill="#b3b3b3" transform="rotate(240)" d="M 0,-130 L 112.6,65 L 69.3,140 L -43.3,-55 L -86.6,20 L -129.9,-55 Z" />
+</svg>
