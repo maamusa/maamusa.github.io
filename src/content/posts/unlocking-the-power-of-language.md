@@ -12,18 +12,18 @@ image:
 
 The machine learning field is at its epitome as LLMs have unlocked the doors of infinite possibility. This makes me ponder, where exactly are we heading?
 
-*   **Model sizes — Increasing (M -> LM -> LLM)**​: As large as 70Billion parameter models are becoming the norm.
-*   **Specificity -> Generalisability**​: Deviating from the earlier norm, models are not trained on particular tasks, but are made to be generic and to mimic human behaviour and knowledge pattern.
-*   **Instruction fine-tuning dataset size — Decreasing​**: The amount of data needed to fine tune a pre-trained model is decreasing. In fact, the prompts that we are writing to LLMs are an example of the minimal fine-tuned set that we used to direct it.
-*   **Era of Unstructured Reasoning​**: Models are able to reason out from unstructured instruction and information. The information and instructions provided to the model need not follow a defined format in the case of an LLM.
-*   **Knowledge Evolution​**: Knowledge increases by sharing and that is what has made humans increasingly knowledgeable. In todays world, this knowledge sharing is getting orchestrated largely by the internet. Imagine the power of something that is trained on the complete internet.
+*   **Model sizes — Increasing (M -> LM -> LLM)**: As large as 70Billion parameter models are becoming the norm.
+*   **Specificity -> Generalisability**: Deviating from the earlier norm, models are not trained on particular tasks, but are made to be generic and to mimic human behaviour and knowledge pattern.
+*   **Instruction fine-tuning dataset size — Decreasing**: The amount of data needed to fine tune a pre-trained model is decreasing. In fact, the prompts that we are writing to LLMs are an example of the minimal fine-tuned set that we used to direct it.
+*   **Era of Unstructured Reasoning**: Models are able to reason out from unstructured instruction and information. The information and instructions provided to the model need not follow a defined format in the case of an LLM.
+*   **Knowledge Evolution**: Knowledge increases by sharing and that is what has made humans increasingly knowledgeable. In todays world, this knowledge sharing is getting orchestrated largely by the internet. Imagine the power of something that is trained on the complete internet.
 
 ## Why is prompt formatting important?
 
-The structuring of the prompt fed to the LLM for achieving any task plays an important role in defining the accuracy and consistency of the results. Even quite small variations in the prompt can lead to highly varied resulting accuracy ([https://arxiv.org/pdf/2310.11324.pdf](https://arxiv.org/pdf/2310.11324.pdf)). Some of the common inherent LLM Issues​ are
+The structuring of the prompt fed to the LLM for achieving any task plays an important role in defining the accuracy and consistency of the results. Even quite small variations in the prompt can lead to highly varied resulting accuracy ([https://arxiv.org/pdf/2310.11324.pdf](https://arxiv.org/pdf/2310.11324.pdf)). Some of the common inherent LLM Issues are
 
-*   Variability in answer even with temperature 0​
-*   Missing out instruction details if it’s lengthy or complex​
+*   Variability in answer even with temperature 0
+*   Missing out instruction details if it’s lengthy or complex
 *   Unable to contain answers in a fixed supported set
 
 The format of the prompt plays an even higher role if it is to be used in a defined pipeline to process high throughput data for the same task. As the task becomes complex, a planning framework needs to be introduced that could break the task into multiple steps and allow for external tool use and knowledge to enhance the results and overcome the inabilities of the LLM. Some common prompting frameworks/techniques have been described below. They can be used as standalone or in combination as well to get better results with the only downside being an increased number of prompt tokens.
@@ -32,31 +32,7 @@ The format of the prompt plays an even higher role if it is to be used in a defi
 
 Some of the common prompt templates are specified below. There is no clear winner when deciding on the prompt format. Based on the task, one can experiment with multiple formats and use the one that works best. Each format is denoted by an acronym and the words specify the part of the use case that has to be described in the sequential order.
 
-**APE**: Action, Purpose, Expectation
-
-**TAG**: Task, Action, Goal
-
-**ERA**: Expectation, Role, Action
-
-**RACE**: Role, Action, Context, Expectation
-
-**TRACE**: Task, Request, Action, Context, Example
-
-**CARE**: Context, Action, Result, Example
-
-**RISE**: Role, Input, Steps, Expectation
-
-**RISEN**: Role, Instructions, Steps, End goal, Narrowing
-
-**ROSES**: Role, Objective, Scenario, Expected Solution, Steps
-
-**RODES**: Role, Objective, Details, Examples, Sense Check
-
-**RTF**: Role, Task, Format
-
-**COAST**: Context, Objective, Actions, Scenario, Task
-
-**COSTAR**: Context, Objective, Style, Tone, Audience, Response Format
+**APE**: Action, Purpose, Expectation**TAG**: Task, Action, Goal**ERA**: Expectation, Role, Action**RACE**: Role, Action, Context, Expectation**TRACE**: Task, Request, Action, Context, Example**CARE**: Context, Action, Result, Example**RISE**: Role, Input, Steps, Expectation**RISEN**: Role, Instructions, Steps, End goal, Narrowing**ROSES**: Role, Objective, Scenario, Expected Solution, Steps**RODES**: Role, Objective, Details, Examples, Sense Check**RTF**: Role, Task, Format**COAST**: Context, Objective, Actions, Scenario, Task**COSTAR**: Context, Objective, Style, Tone, Audience, Response Format
 
 Based on a recent context, the winner claimed the COSTAR prompt format to work best. However, this observation would work specifically for a large generative use case that requires the LLM to be creative and write long paragraphs or summaries.
 
@@ -181,13 +157,7 @@ Workflow of ReWOO ([https://arxiv.org/pdf/2305.18323](https://arxiv.org/pdf/2305
 
 Observing the issues with ReAct like lengthy prompt and increased time, this work tried to decouple reasoning and observation. This works on the idea of segregating tasks among different experts — Planner, Worker, and Solver.
 
-**Planner** — The planner lays out the plans and defines the tasks that the worker needs to resolve through external function calls or knowledge retrieval.
-
-**Worker** — Responsible for executing the functional tasks that were decided by the planner.
-
-**Solver** — Aggregates the planning and worker responses and resolves the task
-
-**ReWOO performs better than ReAct** despite not relying on current and previous observations. ReWOO can generate reasonable plans but sometimes has incorrect expectations or wrong conclusions.
+**Planner**— The planner lays out the plans and defines the tasks that the worker needs to resolve through external function calls or knowledge retrieval.**Worker**— Responsible for executing the functional tasks that were decided by the planner.**Solver**— Aggregates the planning and worker responses and resolves the task**ReWOO performs better than ReAct** despite not relying on current and previous observations. ReWOO can generate reasonable plans but sometimes has incorrect expectations or wrong conclusions.
 
 Improving the tool responses and the Solver prompt to enhance the reasoning performance is vital to have good ReWOO performance. It is used in AutoGPT/Autogen.
 
