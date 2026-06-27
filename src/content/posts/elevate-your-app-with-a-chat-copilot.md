@@ -10,14 +10,6 @@ image:
 
 
 
-9 min read
-
-Mar 3, 2024
-
-
-
-![Image 2](https://miro.medium.com/v2/resize:fit:700/1*V212VBTal3O2ZSYYB3E5Vg.jpeg)
-
 Copilot Cat
 
 Have you created an application so feature-rich that users need to consult tutorials or sift through documentation to grasp its functionalities. Consequently, the steep learning curve is deterring users from utilizing it. This is where a good UX comes into play. With the advent of Large language models (LLMs) or ChatGPT, the most simplified UX that everyone is moving forward to is a conversational bot or a copilot.
