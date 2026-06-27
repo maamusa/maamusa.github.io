@@ -4,7 +4,7 @@ description: "With data growing in its worth, we are surrounded by a mix of virt
 pubDate: 2019-03-04
 author: "Mayank Musaddi"
 image:
-  url: "/assets/posts/ankhondekhi.jpg"
+  url: "/assets/posts/1-1.jpg"
   alt: "Mediated Reality"
 ---
 
