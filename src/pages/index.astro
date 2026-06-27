@@ -1,0 +1,71 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.hero {
+				text-align: center;
+				padding: 4rem 0;
+			}
+			.hero h1 {
+				font-size: 3.5rem;
+				font-weight: 700;
+				margin-bottom: 1rem;
+			}
+			.hero p {
+				font-size: 1.2rem;
+				color: var(--text-secondary);
+				max-width: 600px;
+				margin: 0 auto 2rem auto;
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1.5rem;
+				margin-top: 3rem;
+			}
+			.card-link {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+			}
+			.card-link h3 {
+				margin-bottom: 0.5rem;
+				color: var(--accent);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1 class="gradient-text">Welcome to my Digital Garden</h1>
+				<p>Hi, I'm Mayank. This is my personal space where I share my thoughts, showcase my projects, and build interactive mini-games.</p>
+				<button onclick="window.location.href='/blog'">Read the Blog</button>
+			</section>
+
+			<section class="grid">
+				<a href="/blog" class="card card-link">
+					<h3>📝 Blog</h3>
+					<p>My latest thoughts, tutorials, and deep dives into technology and life. Synced directly from my Obsidian vault.</p>
+				</a>
+				<a href="/projects" class="card card-link">
+					<h3>🚀 Projects</h3>
+					<p>A portfolio of my open-source work, academic projects, and software engineering experiments.</p>
+				</a>
+				<a href="/games" class="card card-link">
+					<h3>🎮 Games & Animations</h3>
+					<p>Interactive mini-games and CSS/Canvas animations built for fun.</p>
+				</a>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
