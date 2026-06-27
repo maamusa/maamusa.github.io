@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/content/projects/shell-and-databases.md",
+                "file": "src/content/posts/monthly-news-mayank-musaddi.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "shell-and-databases"
+              "title": "monthly-news-mayank-musaddi"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "src/content/projects/shell-and-databases.md",
+                "file": "src/content/posts/monthly-news-mayank-musaddi.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for shell-and-databases"
+              "title": "Backlinks for monthly-news-mayank-musaddi"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "src/content/projects/shell-and-databases.md",
+                "file": "src/content/posts/monthly-news-mayank-musaddi.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from shell-and-databases"
+              "title": "Outgoing links from monthly-news-mayank-musaddi"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "src/content/projects/shell-and-databases.md",
+                "file": "src/content/posts/monthly-news-mayank-musaddi.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of shell-and-databases"
+              "title": "Outline of monthly-news-mayank-musaddi"
             }
           }
         ]
@@ -183,22 +183,23 @@
       "bases:Create new base": false
     }
   },
-  "active": "9c63fba4cff94752",
+  "active": "bcf61f86bee1a96f",
   "lastOpenFiles": [
+    "src/content/posts/mediated-reality.md",
+    "src/content/projects/shell-and-databases.md",
     "dist/index.html",
+    "dist/projects/index.html",
     "dist/projects/shell-and-databases/index.html",
+    "dist/projects/shell-and-databases",
     "dist/projects/plane-simulation/index.html",
+    "dist/projects/plane-simulation",
     "dist/projects/netrex/index.html",
     "dist/projects/knowledge-distillation/index.html",
     "dist/projects/hyperbolic-spatial-transcriptomics/index.html",
     "dist/projects/football-tracker/index.html",
-    "dist/projects/felicity-app/index.html",
-    "dist/projects/distrubuted-systems/index.html",
-    "dist/projects/document-scanner/index.html",
-    "dist/projects/cipher-forces/index.html",
+    "dist/media/model.png",
     "dist/media/netrex.png",
     "dist/media/netrex.gif",
-    "dist/media/model.png",
     "dist/media/hierarchy.png",
     "dist/logo.png",
     "dist/favicon.svg",
@@ -210,7 +211,6 @@
     "src/content/posts/elevate-your-app-with-a-chat-copilot.md",
     "src/content/posts/unlocking-the-power-of-language.md",
     "src/content/posts/do-not-go-gentle-into-that-good-night.md",
-    "src/content/posts/mediated-reality.md",
     "src/content/posts/Test 2.md",
     "src/content/posts/Test.md",
     "src/content/posts/Untitled 1.md",

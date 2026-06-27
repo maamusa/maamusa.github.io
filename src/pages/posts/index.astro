@@ -15,39 +15,88 @@ for (const post of posts) {
   const { remarkPluginFrontmatter } = await render(post);
   post.data.readingTime = remarkPluginFrontmatter.minutesRead;
 }
+
+const uniqueTags = [...new Set(posts.flatMap(post => post.data.tags || []))].sort();
 ---
 
 <Layout seo={blogPageContent.seo}>
   <section class="mt-10 max-w-2xl mx-auto px-6">
     <h1 class="font-bold text-3xl mb-1">Posts</h1>
-    <p class="opacity-60 mb-14">{blogPageContent.subtitle}</p>
+    <p class="opacity-60 mb-8">{blogPageContent.subtitle}</p>
 
-    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-10">
+    <div class="flex flex-wrap gap-2 mb-10" id="tag-filters">
+      <button class="tag-btn active px-3 py-1 rounded-full border border-black/20 dark:border-white/20 text-sm opacity-100 bg-black/10 dark:bg-white/10 transition-all" data-tag="all">All</button>
+      {uniqueTags.map(tag => (
+        <button class="tag-btn px-3 py-1 rounded-full border border-black/20 dark:border-white/20 text-sm opacity-60 hover:opacity-100 transition-all" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-10" id="posts-container">
       {
         posts.map((post) => (
           <a
             href={post.data.external_url ? post.data.external_url : `/posts/${post.id}`}
             target={post.data.external_url ? "_blank" : "_self"}
             class=" sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 post"
+            data-tags={(post.data.tags || []).join(",")}
           >
             <Image
               src={post.data.image.url}
               alt={post.data.image.url}
               width={100}
               height={100}
-              class={"rounded-lg w-[100px] h-[100px] object-cover"}
+              class={"rounded-lg w-[100px] h-[100px] object-cover hidden sm:block"}
             />
-            <div class="mt-4 sm:my-auto">
-              <p class="opacity-60 mb-2">
-                {post.data.pubDate.toLocaleDateString()} ·{" "}
+            <div class="mt-4 sm:my-auto sm:mt-0 flex-1">
+              <p class="opacity-60 mb-2 text-sm">
+                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} ·{" "}
                 {post.data.readingTime}
               </p>
               <h3 class="font-medium hover-underline">{post.data.title}</h3>
-              <p class="text-sm opacity-60 mt-2 mb-3">{post.data.description}</p>
+              <p class="text-sm opacity-60 mt-2 mb-3 line-clamp-2">{post.data.description}</p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                {(post.data.tags || []).map((tag: string) => (
+                  <span class="text-xs px-2 py-1 bg-black/5 dark:bg-white/5 rounded border border-black/10 dark:border-white/10 opacity-70">{tag}</span>
+                ))}
+              </div>
             </div>
           </a>
         ))
       }
     </div>
   </section>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.tag-btn');
+    const posts = document.querySelectorAll('.post');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset all buttons
+        filterButtons.forEach(b => {
+          b.classList.remove('active', 'bg-black/10', 'dark:bg-white/10', 'opacity-100');
+          b.classList.add('opacity-60');
+        });
+        
+        // Set clicked button to active
+        btn.classList.add('active', 'bg-black/10', 'dark:bg-white/10', 'opacity-100');
+        btn.classList.remove('opacity-60');
+
+        const selectedTag = btn.getAttribute('data-tag');
+
+        posts.forEach(post => {
+          if (!selectedTag || selectedTag === 'all') {
+            (post as HTMLElement).style.display = '';
+          } else {
+            const tags = post.getAttribute('data-tags')?.split(',') || [];
+            if (tags.includes(selectedTag)) {
+              (post as HTMLElement).style.display = '';
+            } else {
+              (post as HTMLElement).style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

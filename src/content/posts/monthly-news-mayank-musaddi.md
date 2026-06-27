@@ -6,6 +6,7 @@ author: "Mayank Musaddi"
 image:
   url: "https://www.iiit.ac.in/img/iiit-new.png"
   alt: "IIIT News Image"
+tags: ["Personal", "Tech"]
 ---
 
 Mayank Musaddi received his Master of Science – Dual Degree in Computational Natural Sciences (CND). His research work was supervised by Dr. Nita Parekh. Here’s a summary of his research work on Multi-stress rice transcriptome analysis using network-based approach:

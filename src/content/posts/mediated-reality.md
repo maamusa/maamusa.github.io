@@ -7,6 +7,7 @@ author: "Mayank Musaddi"
 image:
   url: "/assets/posts/1-1.jpg"
   alt: "Mediated Reality"
+tags: ["Tech", "Philosophy"]
 ---
 
 “Where the real world changes into simple images, the simple images become real beings and effective motivations of hypnotic behavior.” -Guy Debord

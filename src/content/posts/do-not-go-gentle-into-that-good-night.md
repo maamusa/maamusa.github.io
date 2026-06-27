@@ -7,6 +7,7 @@ author: "Mayank Musaddi"
 image:
   url: "/assets/posts/ankhondekhi.jpg"
   alt: "Do not go gentle into that good night"
+tags: ["Philosophy", "Story"]
 ---
 
 Do not go gentle into that good night,  

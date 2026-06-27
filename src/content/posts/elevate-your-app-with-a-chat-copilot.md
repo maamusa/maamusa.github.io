@@ -6,6 +6,7 @@ author: "Mayank Musaddi"
 image:
   url: "https://miro.medium.com/v2/resize:fit:700/1*V212VBTal3O2ZSYYB3E5Vg.jpeg"
   alt: "Chat Copilot Post Image"
+tags: ["Tech"]
 ---
 
 

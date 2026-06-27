@@ -6,6 +6,7 @@ author: "Mayank Musaddi"
 image:
   url: "https://miro.medium.com/v2/resize:fit:700/1*C-P9oefA8TVTLAsNGP-BWg.jpeg"
   alt: "LLM Post Image"
+tags: ["Tech"]
 ---
 
 **“ChatGPT broke the Turing test.”!**
