@@ -3,6 +3,7 @@ title: "The Magic of Open Ended Movies"
 description: ""
 pubDate: 2021-08-22
 author: "Mayank Musaddi"
+
 image:
   url: "/assets/posts/ankhondekhi.jpg"
   alt: "The Magic of Open Ended Movies"

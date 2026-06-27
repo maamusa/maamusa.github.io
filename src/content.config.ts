@@ -23,13 +23,14 @@ const projectsCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/projects" }),
   schema: z.object({
     title: z.string(),
-    pubDate: z.date(),
     description: z.string(),
+    pubDate: z.coerce.date(),
     author: z.string(),
+    external_url: z.string().optional(),
     image: z.object({
       url: z.string(),
-      alt: z.string(),
-    }).optional(),
+      alt: z.string()
+    }).optional()
   }),
 });
 

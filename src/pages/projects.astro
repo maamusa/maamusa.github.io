@@ -14,7 +14,7 @@ const projects = await getCollection("projects");
     <div class="grid grid-cols-1 group">
       {
         projects.map((project) => (
-          <ProjectCard title={project.data.title} description={project.data.description} image={project.data.image?.url || ""} url={`/projects/${project.id}`} year={project.data.pubDate.getFullYear().toString()} />
+          <ProjectCard title={project.data.title} description={project.data.description} image={project.data.image?.url || ""} url={project.data.external_url || `/projects/${project.id}`} year={project.data.pubDate.getFullYear().toString()} />
         ))
       }
     </div>

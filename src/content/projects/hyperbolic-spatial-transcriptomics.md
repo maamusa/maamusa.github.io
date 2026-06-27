@@ -3,6 +3,7 @@ title: "Hyperbolic Embeddings for Spatial Transcriptomics"
 description: "A hyperbolic graph neural network approach to identify hierarchies in cell types from spatial transcriptomics data obtained from seqFISH+"
 pubDate: 2023-01-01
 author: "Mayank Musaddi"
+
 image:
   url: "/assets/projects/4.png"
   alt: "Hyperbolic Embeddings for Spatial Transcriptomics"
@@ -27,5 +28,5 @@ We evaluate the performance of hyperbolic neural network model against other met
 Using hyperbolic manifold in graph networks improves the performances of scRNA seq analysis, owing to the hierarchical nature of the data which is well captured by poincare maps. Integrating spatial information along with scRNA seq data augments the ability to visualise and infer hierarchical relationship across cells types. We have compared and shown empirical results proving these claims, as well as introduced discussions of using hyperbolic neural networks in analysing of spatial transcriptomics. As an extension to this work, the learned lower dimensional embeddings could be used to explore other scRNA seq analysis tasks like ligand receptor interaction between cells and marker gene identification. With the scalability provided by graph neural networks, other types of cellular data could be easily integrated to augment the quality of the results obtained.
 
 <p class="text-center">
-[View Code](https://github.com/mayankmusaddi/hgnn)
+<a href="https://github.com/mayankmusaddi/hgnn" target="_blank" class="text-blue-400 underline font-semibold mt-2 inline-block">View Code</a>
 </p>
