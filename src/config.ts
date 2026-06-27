@@ -100,7 +100,11 @@ export const aboutPageContent: AboutPageContent = {
   },
   subtitle: "Some information about myself",
   about: {
-    description: `I am a Senior Software Engineer at Google with 4+ years of experience in AI/ML and NLP. I specialize in scaling ML infrastructure, optimizing large-scale models, and driving engineering velocity. Previously, I worked as a Senior Product Engineer at Sprinklr focusing on LLMs and Conversational AI, and as an Undergraduate Research Assistant at IIIT-H in Graph Neural Networks.`,
+    description: `I build AI. I look at data, point at an apple, and tell a computer it's an apple until it believes me. My goal is to teach algorithms to do human tasks faster, though I'm fully aware our industry is wildly overcompensated for doing so.
+
+I don't build blindly. If you hand me a task, expect to debate the why before I execute the how. When I do work, I don't sit still—if a problem is hard enough, I will walk a marathon before the model finishes training.
+
+I live in extremes. I protect my peace by keeping my life as pristine as my codebase (access is strictly 403 Forbidden). But I balance that intensity with deep dives into philosophy and mastering Hans Zimmer on the piano. We’ll get along perfectly if you bring good arguments, respect my space, and remember my one rule for social interaction: no high-fives, just nod from a safe distance.`,
     image_l: {
       url: "/demo-1.jpg",
       alt: "Left Picture",
