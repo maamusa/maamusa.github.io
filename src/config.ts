@@ -117,7 +117,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Senior Software Engineer",
         company: {
           name: "Google",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=google.com&sz=128",
           url: "https://google.com",
         },
         date: "Aug 2024 - Present",
@@ -126,7 +126,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Senior Product Engineer - AI/ML",
         company: {
           name: "Sprinklr",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=sprinklr.com&sz=128",
           url: "https://sprinklr.com",
         },
         date: "June 2022 - Sept 2024",
@@ -135,7 +135,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Research Assistant",
         company: {
           name: "IIIT Hyderabad",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=iiit.ac.in&sz=128",
           url: "https://www.iiit.ac.in",
         },
         date: "May 2019 - May 2022",
@@ -144,7 +144,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Software Engineer",
         company: {
           name: "Bicycle",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=bicycle.ai&sz=128",
           url: "#",
         },
         date: "Aug 2021 - Dec 2021",
@@ -153,7 +153,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Machine Learning Intern",
         company: {
           name: "Sprinklr",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=sprinklr.com&sz=128",
           url: "https://sprinklr.com",
         },
         date: "June 2021 - July 2021",
@@ -162,7 +162,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Machine Learning Intern",
         company: {
           name: "Matchday.ai",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=matchday.ai&sz=128",
           url: "#",
         },
         date: "May 2019 - July 2019",
@@ -171,7 +171,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Software Engineer",
         company: {
           name: "IIIT Hyderabad Product Labs",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=iiit.ac.in&sz=128",
           url: "https://www.iiit.ac.in",
         },
         date: "Aug 2018 - March 2019",
@@ -185,7 +185,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Master's degree, Computational Science",
         company: {
           name: "IIIT Hyderabad",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=iiit.ac.in&sz=128",
           url: "https://www.iiit.ac.in",
         },
         date: "April 2021 - May 2022",
@@ -194,7 +194,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "Bachelor of Technology, Computer Science",
         company: {
           name: "IIIT Hyderabad",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=iiit.ac.in&sz=128",
           url: "https://www.iiit.ac.in",
         },
         date: "2017 - 2022",
@@ -203,7 +203,7 @@ export const aboutPageContent: AboutPageContent = {
         title: "High School",
         company: {
           name: "Don Bosco School, Kolkata",
-          image: "/logo.webp",
+          image: "https://www.google.com/s2/favicons?domain=donboscoparkcircus.org&sz=128",
           url: "#",
         },
         date: "2016",
