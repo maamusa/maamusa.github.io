@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Link from "../components/Link.astro";
+import { Icon } from "astro-icon/components";
 import { homePageContent } from "../config";
 import { getCollection } from "astro:content";
 
@@ -29,14 +30,18 @@ posts.splice(2)
       <p class="text-sm opacity-60">Senior AI Engineer @ Google.</p>
     </div>
     
-    <div class="prose prose-invert prose-p:text-[#b3b3b3] prose-a:text-blue-300 prose-a:underline-offset-4 mb-8">
+    <div class="prose prose-invert prose-p:text-[#b3b3b3] prose-a:text-blue-300 prose-a:underline-offset-4 mb-6">
       <p>
         Welcome to my corner of the internet. By day, I build fast minds. Off the clock, I am usually traveling, playing one of three instruments, or writing. This site is where I document my thoughts on AI research, philosophy, and whatever rabbit hole I've fallen down recently.
       </p>
-      <p>
-        Send me a <a href="mailto:musaddi97@gmail.com">message</a> if you’d like to chat. I’m also available on <a href="https://www.linkedin.com/in/musaddi" target="_blank">LinkedIn</a> or <a href="https://www.instagram.com/mayankmusaddi/" target="_blank">Instagram</a>.
-      </p>
     </div>
+    
+    <p class="text-sm opacity-60 mb-8 flex flex-wrap items-center gap-x-1">
+      Send me a <a href="mailto:musaddi97@gmail.com" class="text-blue-300 hover:underline underline-offset-4">message</a> if you’d like to chat. I’m also available on 
+      <a href="https://www.linkedin.com/in/musaddi" target="_blank" aria-label="LinkedIn" class="hover:text-blue-300 transition-colors mx-0.5"><Icon name="mdi:linkedin" class="w-5 h-5 inline translate-y-[-1px]" /></a>
+      or 
+      <a href="https://www.instagram.com/mayankmusaddi/" target="_blank" aria-label="Instagram" class="hover:text-blue-300 transition-colors mx-0.5"><Icon name="mdi:instagram" class="w-5 h-5 inline translate-y-[-1px]" /></a>.
+    </p>
 
     <div class="flex items-center gap-4 group w-fit mb-8">
       {
