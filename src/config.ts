@@ -100,7 +100,7 @@ export const aboutPageContent: AboutPageContent = {
   },
   subtitle: "Some information about myself",
   about: {
-    description: `I'm Mayank. Welcome to my personal digital garden.`,
+    description: `I am a Senior Software Engineer at Google with 4+ years of experience in AI/ML and NLP. I specialize in scaling ML infrastructure, optimizing large-scale models, and driving engineering velocity. Previously, I worked as a Senior Product Engineer at Sprinklr focusing on LLMs and Conversational AI, and as an Undergraduate Research Assistant at IIIT-H in Graph Neural Networks.`,
     image_l: {
       url: "/demo-1.jpg",
       alt: "Left Picture",
@@ -111,8 +111,36 @@ export const aboutPageContent: AboutPageContent = {
     },
   },
   work: {
-    description: `I've worked with a variety of technologies and tools.`,
-    items: [],
+    description: `Some of my professional experience.`,
+    items: [
+      {
+        title: "Senior Software Engineer / SWE III",
+        company: {
+          name: "Google",
+          image: "/logo.webp",
+          url: "https://google.com",
+        },
+        date: "Aug 2024 - Present",
+      },
+      {
+        title: "Senior Product Engineer - AI/ML",
+        company: {
+          name: "Sprinklr",
+          image: "/logo.webp",
+          url: "https://sprinklr.com",
+        },
+        date: "June 2022 - Aug 2024",
+      },
+      {
+        title: "Undergraduate Research Assistant",
+        company: {
+          name: "IIIT Hyderabad",
+          image: "/logo.webp",
+          url: "https://www.iiit.ac.in",
+        },
+        date: "May 2020 - May 2022",
+      },
+    ],
   },
   connect: {
     description: `Feel free to connect with me.`,
