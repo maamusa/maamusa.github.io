@@ -20,9 +20,9 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
     </div>
 
   </section>
-  <section class="my-20 mt-32 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 sm:mb-0 opacity-60">Work</h2>
-    <div>
+  <section class="mt-20 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+    <h2 class="mb-8 sm:mb-0 opacity-60 sm:w-32 shrink-0">Work</h2>
+    <div class="w-full">
       <div class="mb-6">
         <Fragment set:html={workDescription} />
       </div>
@@ -31,9 +31,9 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
       </div>
     </div>
   </section>
-  <section class="mt-32 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 sm:mb-0 opacity-60">Education</h2>
-    <div>
+  <section class="mt-20 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+    <h2 class="mb-8 sm:mb-0 opacity-60 sm:w-32 shrink-0">Education</h2>
+    <div class="w-full">
       <div class="mb-6">
         <Fragment set:html={marked.parse(aboutPageContent.education.description)} />
       </div>
@@ -42,9 +42,9 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
       </div>
     </div>
   </section>
-  <section class="mt-32 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 sm:mb-0 opacity-60">Connect</h2>
-    <div>
+  <section class="mt-20 mb-20 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+    <h2 class="mb-8 sm:mb-0 opacity-60 sm:w-32 shrink-0">Connect</h2>
+    <div class="w-full">
       <div class="mb-6">
         <Fragment set:html={connectDescription} />
       </div>
