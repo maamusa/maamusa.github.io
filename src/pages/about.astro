@@ -15,10 +15,9 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
   <section class="mt-10 max-w-2xl mx-auto px-6">
     <h1 class="font-bold text-3xl mb-1">About</h1>
     <p class="opacity-60 mb-10">{aboutPageContent.subtitle}</p>
-    <div class="mb-14">
+    <div class="mb-14 prose prose-invert prose-p:text-[#b3b3b3]">
       <Fragment set:html={pageDescription} />
     </div>
-
   </section>
   <section class="mt-20 max-w-2xl mx-auto px-6 sm:flex sm:gap-8">
     <h2 class="mb-8 sm:mb-0 opacity-60 sm:w-24 shrink-0">Work</h2>
