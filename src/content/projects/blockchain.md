@@ -4,8 +4,8 @@ description: "Projects based on Blockchain including games and smart contracts i
 pubDate: 2023-01-01
 author: "Mayank Musaddi"
 image:
-  url: "/assets/projects/1.png"
-  alt: "Placeholder image"
+  url: "/assets/projects/10.jpg"
+  alt: "Block Chain"
 ---
 
 # BlockChain
@@ -18,7 +18,7 @@ Using Solidity we implemented the **vickrey auction** and **bidding ring** smart
 
 **Visibility** which is to secure certain parts(functions) of the smart contracts  and **Modifiers** which allows the control of the smart contract functions were implemented.
 
-<p></p>
+<p>[View Code](https://github.com/mayankmusaddi/vickrey-auction-blockchain)</p>
 
 ## Liar's Dice Game
 
@@ -27,9 +27,9 @@ Barbossa’s Brethren managed to acquire Queen Anne’s Revenge. They now want t
 So this is a dApp hosting the standard Liar's Dice Game in a distributed setting.
 ![result](/assets/projects/10.gif)
 
-<p></p>
+<p>[View Code](https://github.com/mayankmusaddi/liar-dice-dapp)</p>
 
 
 ## Resume Verification BlockChain Web App
 A demonstration of basic resume information verification using blockchain. The agents provide a web browser interface to show establishing relationships between agents, issuing verifiable credentials, and proving claims from verifiable credentials. The entire project has been implemented using HyperLedger Indy.
-<p></p>
+<p>[View Code](https://github.com/mayankmusaddi/resume-verification-blockchain)</p>

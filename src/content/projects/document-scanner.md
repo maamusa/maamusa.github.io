@@ -4,6 +4,8 @@ description: "An end to end application for Document Scanning to automate data e
 pubDate: 2023-01-01
 author: "Mayank Musaddi"
 image:
-  url: "/assets/projects/1.png"
-  alt: "Placeholder image"
+  url: "/assets/projects/5.jpg"
+  alt: "Document Scanner"
 ---
+
+

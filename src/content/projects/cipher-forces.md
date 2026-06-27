@@ -4,6 +4,8 @@ description: "CipherForces is a Learning Platform for various Security Schemes w
 pubDate: 2023-01-01
 author: "Mayank Musaddi"
 image:
-  url: "/assets/projects/1.png"
-  alt: "Placeholder image"
+  url: "/assets/projects/7.gif"
+  alt: "Cipher Forces"
 ---
+
+

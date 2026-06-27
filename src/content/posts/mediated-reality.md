@@ -5,7 +5,7 @@ pubDate: 2019-03-04
 author: "Mayank Musaddi"
 image:
   url: "/assets/posts/ankhondekhi.jpg"
-  alt: "Placeholder image"
+  alt: "Mediated Reality"
 ---
 
 “Where the real world changes into simple images, the simple images become real beings and effective motivations of hypnotic behavior.” -Guy Debord
