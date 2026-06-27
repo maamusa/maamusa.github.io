@@ -31,10 +31,6 @@ export const navBarLinks: NavBarLink[] = [
     title: "Blog",
     url: "/blog",
   },
-  {
-    title: "Games",
-    url: "/games",
-  },
 ];
 
 export const socialLinks: SocialLink[] = [
