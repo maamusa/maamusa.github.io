@@ -34,8 +34,8 @@ const { pageId } = Astro.props;
       const pageId = container.getAttribute('data-page-id');
       const storageKey = `vote_${pageId}`;
       
-      // Mock initial count since we have no backend yet
-      let count = Math.floor(Math.random() * 50) + 10;
+      // Set initial count to 0 since there is no backend hooked up yet
+      let count = 0;
       
       const userVote = localStorage.getItem(storageKey);
       if (userVote === 'up') {
