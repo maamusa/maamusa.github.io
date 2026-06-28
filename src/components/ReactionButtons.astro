@@ -6,12 +6,12 @@ interface Props {
 const { pageId } = Astro.props;
 ---
 
-<div class="flex items-center gap-1" id="reaction-container" data-page-id={pageId}>
-  <button id="btn-upvote" class="w-7 h-7 flex items-center justify-center rounded-md hover:bg-neutral-500/20 transition-colors opacity-60 hover:opacity-100" title="Upvote">
+<div class="flex items-center rounded-md border border-neutral-500/30 text-sm overflow-hidden" id="reaction-container" data-page-id={pageId}>
+  <button id="btn-upvote" class="w-7 h-7 flex items-center justify-center hover:bg-neutral-500/20 transition-colors opacity-70 hover:opacity-100" title="Upvote">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
   </button>
-  <span id="vote-count" class="font-serif text-sm opacity-60 min-w-[1ch] text-center">0</span>
-  <button id="btn-downvote" class="w-7 h-7 flex items-center justify-center rounded-md hover:bg-neutral-500/20 transition-colors opacity-60 hover:opacity-100" title="Downvote">
+  <span id="vote-count" class="font-serif opacity-70 px-1 text-center min-w-[2ch]">0</span>
+  <button id="btn-downvote" class="w-7 h-7 flex items-center justify-center hover:bg-neutral-500/20 transition-colors opacity-70 hover:opacity-100" title="Downvote">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
   </button>
 </div>
