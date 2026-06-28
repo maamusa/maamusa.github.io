@@ -1,30 +1,27 @@
 ---
 // src/components/PostControls.astro
 ---
-<div class="flex flex-wrap gap-2 mb-8 items-center opacity-60 hover:opacity-100 transition-opacity" id="post-controls">
-  <button id="btn-translate" title="Translate to Hindi" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-sm transition-colors flex items-center justify-center">
-    <span id="translate-icon">🌐</span>
+<div class="flex items-center gap-2" id="post-controls">
+  <button id="btn-translate" title="Translate to Hindi" class="w-7 h-7 flex items-center justify-center rounded-md hover:bg-white/10 transition-colors text-sm font-serif">
+    <span id="translate-icon">अ</span>
   </button>
-  <button id="btn-audio-en" title="Play Audio (English)" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-sm transition-colors flex items-center justify-center">
-    <span>🔊</span>
-  </button>
-  <button id="btn-audio-hi" title="Play Audio (Hindi)" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-sm transition-colors flex items-center justify-center" style="display: none;">
-    <span>🔊</span>
-  </button>
-  <button id="btn-stop-audio" title="Stop Audio" class="w-8 h-8 rounded-full bg-red-500/10 hover:bg-red-500/20 text-sm transition-colors flex items-center justify-center" style="display: none;">
-    <span>⏹</span>
+  
+  <button id="btn-audio-toggle" title="Play Audio" class="w-7 h-7 flex items-center justify-center rounded-md hover:bg-white/10 transition-colors">
+    <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="icon-pause" class="hidden" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
 </div>
 
 <script>
   const translateBtn = document.getElementById('btn-translate');
   const translateIconEl = document.getElementById('translate-icon');
-  const playEnBtn = document.getElementById('btn-audio-en');
-  const playHiBtn = document.getElementById('btn-audio-hi');
-  const stopAudioBtn = document.getElementById('btn-stop-audio');
+  const audioToggleBtn = document.getElementById('btn-audio-toggle');
+  const iconPlay = document.getElementById('icon-play');
+  const iconPause = document.getElementById('icon-pause');
   
   let currentLang = 'en';
   let originalHtml = ''; 
+  let isPlaying = false;
   
   async function translateText(text: string, targetLang: string): Promise<string> {
     if(!text.trim()) return text;
@@ -39,18 +36,29 @@
     }
   }
 
+  function stopAudio() {
+    window.speechSynthesis.cancel();
+    isPlaying = false;
+    if (iconPlay) iconPlay.classList.remove('hidden');
+    if (iconPause) iconPause.classList.add('hidden');
+  }
+
   async function toggleTranslate() {
     const article = document.querySelector('article');
     if(!article) return;
+    
+    stopAudio();
     
     if (currentLang === 'en') {
       if (!originalHtml) {
         originalHtml = article.innerHTML;
       }
       
+      if (translateIconEl) {
+        translateIconEl.style.animation = 'pulse 1.5s infinite';
+      }
       if (translateBtn) {
         translateBtn.title = 'Translating...';
-        translateBtn.style.opacity = '0.5';
         translateBtn.style.pointerEvents = 'none';
       }
       
@@ -82,54 +90,59 @@
       }
       
       currentLang = 'hi';
-      if (translateIconEl) translateIconEl.innerText = '🇬🇧';
+      if (translateIconEl) {
+        translateIconEl.innerText = 'En';
+        translateIconEl.style.animation = 'none';
+        translateIconEl.className = 'font-sans text-xs font-semibold';
+      }
       if (translateBtn) {
         translateBtn.title = 'View in English';
-        translateBtn.style.opacity = '1';
         translateBtn.style.pointerEvents = 'auto';
       }
-      
-      if (playEnBtn) playEnBtn.style.display = 'none';
-      if (playHiBtn) playHiBtn.style.display = 'flex';
       
     } else {
       article.innerHTML = originalHtml;
       currentLang = 'en';
-      if (translateIconEl) translateIconEl.innerText = '🌐';
+      if (translateIconEl) {
+        translateIconEl.innerText = 'अ';
+        translateIconEl.className = '';
+      }
       if (translateBtn) translateBtn.title = 'Translate to Hindi';
-      if (playEnBtn) playEnBtn.style.display = 'flex';
-      if (playHiBtn) playHiBtn.style.display = 'none';
     }
   }
 
   translateBtn?.addEventListener('click', toggleTranslate);
 
-  function speak(lang: string) {
-    window.speechSynthesis.cancel();
+  function toggleAudio() {
+    if (isPlaying) {
+      stopAudio();
+      return;
+    }
+
     const article = document.querySelector('article');
     if(!article) return;
     
     const textToSpeak = article.innerText; 
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    utterance.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+    utterance.lang = currentLang === 'hi' ? 'hi-IN' : 'en-US';
     
     utterance.onstart = () => {
-      if (stopAudioBtn) stopAudioBtn.style.display = 'flex';
+      isPlaying = true;
+      if (iconPlay) iconPlay.classList.add('hidden');
+      if (iconPause) iconPause.classList.remove('hidden');
     };
-    utterance.onend = () => {
-      if (stopAudioBtn) stopAudioBtn.style.display = 'none';
-    };
-    utterance.onerror = () => {
-      if (stopAudioBtn) stopAudioBtn.style.display = 'none';
-    };
+    utterance.onend = stopAudio;
+    utterance.onerror = stopAudio;
     
     window.speechSynthesis.speak(utterance);
   }
 
-  playEnBtn?.addEventListener('click', () => speak('en'));
-  playHiBtn?.addEventListener('click', () => speak('hi'));
-  stopAudioBtn?.addEventListener('click', () => {
-    window.speechSynthesis.cancel();
-    if (stopAudioBtn) stopAudioBtn.style.display = 'none';
-  });
+  audioToggleBtn?.addEventListener('click', toggleAudio);
+
 </script>
+<style>
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+  }
+</style>
