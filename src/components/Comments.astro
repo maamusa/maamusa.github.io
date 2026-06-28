@@ -7,50 +7,14 @@ interface Props {
 const { pageId, pageUrl, pageTitle } = Astro.props;
 ---
 
-<div class="mt-16 pt-8 border-t border-white/10 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+<div class="mt-16 pt-8 border-t border-white/10">
   <div id="cusdis_thread"
     data-host="https://cusdis.com"
-    data-theme="auto"
     data-app-id="937b9b9e-908f-4ece-820f-bc7ec1439491"
     data-page-id={pageId}
     data-page-url={pageUrl}
     data-page-title={pageTitle}
+    data-theme="auto"
   ></div>
-  <script is:inline async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-  <script is:inline>
-    // Sync Cusdis theme with the site's theme toggle
-    function syncCusdisTheme() {
-      const isDark = document.documentElement.classList.contains('dark');
-      if (window.CUSDIS) {
-        window.CUSDIS.setTheme(isDark ? 'dark' : 'light');
-      }
-    }
-    
-    // Create an observer to watch for class changes on the html element (dark mode toggle)
-    const observer = new MutationObserver(syncCusdisTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    
-    // Initial sync after Cusdis loads
-    window.addEventListener('message', (e) => {
-      if (e.data && e.data.type === 'cusdis_ready') {
-        syncCusdisTheme();
-      }
-    });
-  </script>
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </div>
-<style>
-  /* Minimal scrollbar to match the theme */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(150, 150, 150, 0.3);
-    border-radius: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(150, 150, 150, 0.5);
-  }
-</style>
