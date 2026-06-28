@@ -1,7 +1,7 @@
 ---
 title: "AI Ramp Up: A Guide to the Basics and Beyond"
 description: "A quick ramp-up guide covering essential AI concepts, from Transformer mechanics to advanced LLM techniques."
-pubDate: 2024-04-11
+pubDate: 2026-04-11
 author: "Mayank Musaddi"
 image:
   url: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop"
