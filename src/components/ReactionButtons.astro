@@ -16,10 +16,13 @@ const { pageId } = Astro.props;
   </button>
 </div>
 
-<script>
-  // Ensure the script runs on client side after Astro page load
-  document.addEventListener('DOMContentLoaded', initReactions);
-  document.addEventListener('astro:page-load', initReactions); // For ViewTransitions
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+  // Initialize Supabase
+  const supabaseUrl = 'https://ngqoeawdbbiiikeugyje.supabase.co'
+  const supabaseKey = 'sb_publishable_GacueCXO5sNHwgiKwH5Mrg_Z22HO6LA'
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
   function initReactions() {
     const container = document.getElementById('reaction-container');
@@ -30,53 +33,70 @@ const { pageId } = Astro.props;
     if (container && btnUpvote && btnDownvote && voteCount) {
       const pageId = container.getAttribute('data-page-id');
       const storageKey = `vote_${pageId}`;
+      let currentGlobalCount = 0;
       
-      // Start count at 0
-      let count = 0;
-      
+      // Load user's local vote state
       const userVote = localStorage.getItem(storageKey);
       if (userVote === 'up') {
-        count += 1;
         btnUpvote.classList.add('bg-neutral-500/30', '!opacity-100');
       } else if (userVote === 'down') {
-        count -= 1;
         btnDownvote.classList.add('bg-neutral-500/30', '!opacity-100');
       }
+
+      // Fetch global vote count from Supabase
+      async function fetchGlobalCount() {
+        try {
+          const { data, error } = await supabase
+            .from('page_votes')
+            .select('vote_count')
+            .eq('page_id', pageId)
+            .single();
+            
+          if (data) {
+            currentGlobalCount = data.vote_count;
+            voteCount.innerText = currentGlobalCount.toString();
+          }
+        } catch (e) {
+          console.error('Error fetching votes', e);
+        }
+      }
+      fetchGlobalCount();
       
-      voteCount.innerText = count.toString();
-      
-      function handleVote(type: 'up' | 'down') {
+      async function handleVote(type) {
         const currentVote = localStorage.getItem(storageKey);
+        let increment = 0;
         
         if (currentVote === type) {
           // Remove vote
           localStorage.removeItem(storageKey);
-          count = type === 'up' ? count - 1 : count + 1;
-          btnUpvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
-          btnDownvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
+          increment = type === 'up' ? -1 : 1;
+          btnUpvote.classList.remove('bg-neutral-500/30', '!opacity-100');
+          btnDownvote.classList.remove('bg-neutral-500/30', '!opacity-100');
         } else {
           // Change or add vote
           localStorage.setItem(storageKey, type);
           
-          if (currentVote === 'up') {
-            count -= 2; // from +1 to -1
-          } else if (currentVote === 'down') {
-            count += 2; // from -1 to +1
-          } else {
-            count = type === 'up' ? count + 1 : count - 1;
-          }
+          if (currentVote === 'up') increment = -2; // from +1 to -1
+          else if (currentVote === 'down') increment = 2; // from -1 to +1
+          else increment = type === 'up' ? 1 : -1;
           
-          btnUpvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
-          btnDownvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
+          btnUpvote.classList.remove('bg-neutral-500/30', '!opacity-100');
+          btnDownvote.classList.remove('bg-neutral-500/30', '!opacity-100');
           
-          if (type === 'up') {
-            btnUpvote?.classList.add('bg-neutral-500/30', '!opacity-100');
-          } else {
-            btnDownvote?.classList.add('bg-neutral-500/30', '!opacity-100');
-          }
+          if (type === 'up') btnUpvote.classList.add('bg-neutral-500/30', '!opacity-100');
+          else btnDownvote.classList.add('bg-neutral-500/30', '!opacity-100');
         }
         
-        if (voteCount) voteCount.innerText = count.toString();
+        // Optimistic UI update
+        currentGlobalCount += increment;
+        voteCount.innerText = currentGlobalCount.toString();
+        
+        // Send to Supabase via our secure RPC function
+        try {
+          await supabase.rpc('vote', { page_id_arg: pageId, inc_arg: increment });
+        } catch (e) {
+          console.error('Error recording vote', e);
+        }
       }
       
       btnUpvote.onclick = () => handleVote('up');
@@ -84,6 +104,6 @@ const { pageId } = Astro.props;
     }
   }
   
-  // Call once in case the events already fired
-  initReactions();
+  document.addEventListener('DOMContentLoaded', initReactions);
+  document.addEventListener('astro:page-load', initReactions);
 </script>
