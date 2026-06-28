@@ -37,10 +37,10 @@ const { pageId } = Astro.props;
       const userVote = localStorage.getItem(storageKey);
       if (userVote === 'up') {
         count += 1;
-        btnUpvote.classList.add('bg-blue-500/20', 'text-blue-400', '!opacity-100');
+        btnUpvote.classList.add('bg-neutral-500/30', '!opacity-100');
       } else if (userVote === 'down') {
         count -= 1;
-        btnDownvote.classList.add('bg-red-500/20', 'text-red-400', '!opacity-100');
+        btnDownvote.classList.add('bg-neutral-500/30', '!opacity-100');
       }
       
       voteCount.innerText = count.toString();
@@ -52,8 +52,8 @@ const { pageId } = Astro.props;
           // Remove vote
           localStorage.removeItem(storageKey);
           count = type === 'up' ? count - 1 : count + 1;
-          btnUpvote?.classList.remove('bg-blue-500/20', 'text-blue-400', '!opacity-100');
-          btnDownvote?.classList.remove('bg-red-500/20', 'text-red-400', '!opacity-100');
+          btnUpvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
+          btnDownvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
         } else {
           // Change or add vote
           localStorage.setItem(storageKey, type);
@@ -66,13 +66,13 @@ const { pageId } = Astro.props;
             count = type === 'up' ? count + 1 : count - 1;
           }
           
-          btnUpvote?.classList.remove('bg-blue-500/20', 'text-blue-400', '!opacity-100');
-          btnDownvote?.classList.remove('bg-red-500/20', 'text-red-400', '!opacity-100');
+          btnUpvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
+          btnDownvote?.classList.remove('bg-neutral-500/30', '!opacity-100');
           
           if (type === 'up') {
-            btnUpvote?.classList.add('bg-blue-500/20', 'text-blue-400', '!opacity-100');
+            btnUpvote?.classList.add('bg-neutral-500/30', '!opacity-100');
           } else {
-            btnDownvote?.classList.add('bg-red-500/20', 'text-red-400', '!opacity-100');
+            btnDownvote?.classList.add('bg-neutral-500/30', '!opacity-100');
           }
         }
         
