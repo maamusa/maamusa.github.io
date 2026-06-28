@@ -8,20 +8,23 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
 ---
 
 <div class="mt-16 pt-8 border-t border-white/10">
-  <div id="cusdis_thread"
+  <div
+    id="cusdis_thread"
+    class="min-h-[400px]"
     data-host="https://cusdis.com"
     data-app-id="937b9b9e-908f-4ece-820f-bc7ec1439491"
     data-page-id={pageId}
     data-page-url={pageUrl}
     data-page-title={pageTitle}
     data-theme="dark"
-  ></div>
+  >
+  </div>
   <script is:inline>
     // Ensure Cusdis theme matches the site's current theme on load
-    const cusdisThread = document.getElementById('cusdis_thread');
+    const cusdisThread = document.getElementById("cusdis_thread");
     if (cusdisThread) {
-      const isDark = document.documentElement.classList.contains('dark');
-      cusdisThread.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      const isDark = document.documentElement.classList.contains("dark");
+      cusdisThread.setAttribute("data-theme", isDark ? "dark" : "light");
     }
   </script>
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
@@ -29,9 +32,6 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
 
 <style is:global>
   #cusdis_thread iframe {
-    display: block !important;
-    width: 100% !important;
-    border: none !important;
-    overflow: hidden !important;
+    min-height: 400px !important;
   }
 </style>
