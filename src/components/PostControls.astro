@@ -1,25 +1,24 @@
 ---
 // src/components/PostControls.astro
 ---
-<div class="flex flex-wrap gap-3 mb-8 items-center border border-white/10 p-3 rounded-xl bg-white/5" id="post-controls">
-  <button id="btn-translate" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-colors flex items-center gap-2">
-    <span id="translate-icon">🌐</span> <span id="translate-text">Translate to Hindi</span>
+<div class="flex flex-wrap gap-2 mb-8 items-center opacity-60 hover:opacity-100 transition-opacity" id="post-controls">
+  <button id="btn-translate" title="Translate to Hindi" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-sm transition-colors flex items-center justify-center">
+    <span id="translate-icon">🌐</span>
   </button>
-  <button id="btn-audio-en" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-colors flex items-center gap-2">
-    <span>🔊</span> Play Audio (English)
+  <button id="btn-audio-en" title="Play Audio (English)" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-sm transition-colors flex items-center justify-center">
+    <span>🔊</span>
   </button>
-  <button id="btn-audio-hi" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-colors items-center gap-2" style="display: none;">
-    <span>🔊</span> Play Audio (Hindi)
+  <button id="btn-audio-hi" title="Play Audio (Hindi)" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-sm transition-colors flex items-center justify-center" style="display: none;">
+    <span>🔊</span>
   </button>
-  <button id="btn-stop-audio" class="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 text-sm font-medium transition-colors items-center gap-2" style="display: none;">
-    <span>⏹</span> Stop Audio
+  <button id="btn-stop-audio" title="Stop Audio" class="w-8 h-8 rounded-full bg-red-500/10 hover:bg-red-500/20 text-sm transition-colors flex items-center justify-center" style="display: none;">
+    <span>⏹</span>
   </button>
 </div>
 
 <script>
   const translateBtn = document.getElementById('btn-translate');
   const translateIconEl = document.getElementById('translate-icon');
-  const translateTextEl = document.getElementById('translate-text');
   const playEnBtn = document.getElementById('btn-audio-en');
   const playHiBtn = document.getElementById('btn-audio-hi');
   const stopAudioBtn = document.getElementById('btn-stop-audio');
@@ -49,8 +48,8 @@
         originalHtml = article.innerHTML;
       }
       
-      if (translateTextEl) translateTextEl.innerText = 'Translating...';
       if (translateBtn) {
+        translateBtn.title = 'Translating...';
         translateBtn.style.opacity = '0.5';
         translateBtn.style.pointerEvents = 'none';
       }
@@ -83,9 +82,9 @@
       }
       
       currentLang = 'hi';
-      if (translateTextEl) translateTextEl.innerText = 'View in English';
       if (translateIconEl) translateIconEl.innerText = '🇬🇧';
       if (translateBtn) {
+        translateBtn.title = 'View in English';
         translateBtn.style.opacity = '1';
         translateBtn.style.pointerEvents = 'auto';
       }
@@ -96,8 +95,8 @@
     } else {
       article.innerHTML = originalHtml;
       currentLang = 'en';
-      if (translateTextEl) translateTextEl.innerText = 'Translate to Hindi';
       if (translateIconEl) translateIconEl.innerText = '🌐';
+      if (translateBtn) translateBtn.title = 'Translate to Hindi';
       if (playEnBtn) playEnBtn.style.display = 'flex';
       if (playHiBtn) playHiBtn.style.display = 'none';
     }
