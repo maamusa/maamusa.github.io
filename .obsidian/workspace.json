@@ -185,6 +185,7 @@
   },
   "active": "9c63fba4cff94752",
   "lastOpenFiles": [
+    "public/CNAME",
     "dist/index.html",
     "dist/projects/shell-and-databases/index.html",
     "dist/projects/plane-simulation/index.html",
@@ -195,7 +196,6 @@
     "dist/projects/felicity-app/index.html",
     "dist/projects/document-scanner/index.html",
     "dist/projects/cipher-forces/index.html",
-    "dist/projects/distrubuted-systems/index.html",
     "dist/media/netrex.png",
     "dist/media/netrex.gif",
     "dist/media/model.png",
