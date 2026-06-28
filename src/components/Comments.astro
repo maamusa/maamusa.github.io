@@ -29,8 +29,9 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
 
 <style is:global>
   #cusdis_thread iframe {
+    display: block !important;
+    width: 100% !important;
     border: none !important;
     overflow: hidden !important;
-    /* Allow the iframe to resize naturally without creating extra whitespace */
   }
 </style>
