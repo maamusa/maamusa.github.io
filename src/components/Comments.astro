@@ -26,3 +26,9 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
   </script>
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </div>
+
+<style is:global>
+  #cusdis_thread iframe {
+    min-height: 400px !important;
+  }
+</style>
