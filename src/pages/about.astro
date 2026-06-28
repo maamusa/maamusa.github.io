@@ -14,7 +14,12 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
 <Layout seo={aboutPageContent.seo}>
   <section class="mt-10 max-w-2xl mx-auto px-6">
     <h1 class="font-bold text-3xl mb-1">About</h1>
-    <p class="opacity-60 mb-10">{aboutPageContent.subtitle}</p>
+    <p class="opacity-60 mb-8">{aboutPageContent.subtitle}</p>
+    
+    <div class="mb-10 w-full overflow-hidden rounded-xl border border-white/10">
+      <img src="/assets/profile.jpg" alt="Mayank Musaddi" class="w-full object-cover max-h-[400px] object-center" />
+    </div>
+
     <div class="mb-14 prose prose-invert prose-p:text-[#b3b3b3]">
       <Fragment set:html={pageDescription} />
     </div>
