@@ -8,13 +8,21 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
 ---
 
 <div class="mt-16 pt-8 border-t border-white/10">
-  <div id="cusdis_thread"
+  <div id="cusdis_thread" class="min-h-[400px]"
     data-host="https://cusdis.com"
     data-app-id="937b9b9e-908f-4ece-820f-bc7ec1439491"
     data-page-id={pageId}
     data-page-url={pageUrl}
     data-page-title={pageTitle}
-    data-theme="auto"
+    data-theme="dark"
   ></div>
+  <script is:inline>
+    // Ensure Cusdis theme matches the site's current theme on load
+    const cusdisThread = document.getElementById('cusdis_thread');
+    if (cusdisThread) {
+      const isDark = document.documentElement.classList.contains('dark');
+      cusdisThread.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    }
+  </script>
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </div>
