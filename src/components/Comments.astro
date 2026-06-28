@@ -8,7 +8,7 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
 ---
 
 <div class="mt-16 pt-8 border-t border-white/10">
-  <div id="cusdis_thread" class="min-h-[250px]"
+  <div id="cusdis_thread"
     data-host="https://cusdis.com"
     data-app-id="937b9b9e-908f-4ece-820f-bc7ec1439491"
     data-page-id={pageId}
@@ -29,6 +29,8 @@ const { pageId, pageUrl, pageTitle } = Astro.props;
 
 <style is:global>
   #cusdis_thread iframe {
-    min-height: 250px !important;
+    border: none !important;
+    overflow: hidden !important;
+    /* Allow the iframe to resize naturally without creating extra whitespace */
   }
 </style>
