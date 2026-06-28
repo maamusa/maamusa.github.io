@@ -20,7 +20,7 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
   seo={{
     title: entry.data.title,
     description: entry.data.description,
-    image: entry.data.image.url,
+    image: entry.data.image ? entry.data.image.url : "/favicon.svg",
   }}
 >
   <section class="mt-10 max-w-2xl mx-auto px-6">
@@ -45,13 +45,7 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
         </p>
       </div>
     </div>
-    <Image
-      src={entry.data.image.url}
-      alt={entry.data.image.alt}
-      width={800}
-      height={300}
-      class="apsect-video w-full rounded-xl mb-10"
-    />
+
     <article
       class="prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-[#b3b3b3]"
     >

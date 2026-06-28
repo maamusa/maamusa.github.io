@@ -7,7 +7,7 @@ author: "Mayank Musaddi"
 image:
   url: "/assets/posts/ankhondekhi.jpg"
   alt: "The Magic of Open Ended Movies"
-tags: ["Story", "Personal"]
+tags: ["Personal", "Watchlist"]
 ---
 
 The last few seconds of an open-ended movie often leave people puzzled and sometimes irritated. While the closing credits are still rolling, we often raise our eyebrows in mock disbelief and scramble the remote to check whether the movie is really over or are there a few more minutes. I remember when I had watched my first open-ended movie at the age of around 12 or so, it made no sense at all. We were quite fast to judge that the movie had no sense and who would even watch these things!

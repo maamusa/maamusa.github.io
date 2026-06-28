@@ -9,6 +9,8 @@ image:
 tags: ["Tech"]
 ---
 
+![LLM Post Image](https://miro.medium.com/v2/resize:fit:700/1*C-P9oefA8TVTLAsNGP-BWg.jpeg)
+
 **“ChatGPT broke the Turing test.”!**
 
 The machine learning field is at its epitome as LLMs have unlocked the doors of infinite possibility. This makes me ponder, where exactly are we heading?
