@@ -6,7 +6,7 @@ author: "Mayank Musaddi"
 image:
   url: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop"
   alt: "Abstract AI Digital Art"
-tags: ["Tech", "AI"]
+tags: ["Tech"]
 ---
 
 AI being the buzz, lots of people are trying to get their feet wet with a basic understanding of AI, how it works, and how it can be useful to them. There are two aspects to understanding AI—learning the theory behind it in detail, or learning how it can be used in your day-to-day life. For most people, the latter will be sufficient; they do not need to understand the underlying theory to get going. However, for someone trying to build a career around AI or aiming to enter the field of research, keeping the basics clear is of utmost importance.
