@@ -38,17 +38,32 @@ Before Transformers, RNNs were the old standard method. However, they were slow 
 
 Transformers solved the limitations of RNNs using an **Encoder-Decoder** architecture built heavily around matrix multiplications and dot products ($A \cdot B^T$).
 
+![](/assets/posts/ai-ramp-up/image2.png)
+![](/assets/posts/ai-ramp-up/image9.png)
+
 ### Core Components
 *   **Input Embedding**: Converts a raw token into a Token ID, which is then mapped to a 512-dimensional continuous vector (a learnable embedding).
 *   **Positional Encoding**: Since Transformers process all tokens simultaneously (no inherent sequence order), a fixed sin/cos-based function injects position information into the token embedding.
 *   **Single-Head Self Attention**: Allows the model to relate words to each other within the input sequence. *Note: This requires no learnable parameters except for the initial token embeddings.*
+    
+    ![](/assets/posts/ai-ramp-up/image6.png)
+    ![](/assets/posts/ai-ramp-up/image7.png)
 *   **Multi-Head Self Attention**: Divides the 512-dimensional embedding into multiple parts (heads), calculates attention independently, and then concatenates them. This allows the model to attend to different aspects of the context simultaneously. *Learnable Parameters: $W_q, W_k, W_v, W_o$.*
+
+    ![](/assets/posts/ai-ramp-up/image3.png)
 *   **Add & Norm**: Layer Normalization is applied using the mean ($\mu$) and variance ($\sigma$). It utilizes learnable parameters Alpha (for scaling) and Gamma (for shifting).
 *   **Masked Multi-Head Attention**: Used in the decoder. It masks (makes zero) the upper right triangle of the attention matrix, ensuring the model cannot "look ahead" at future tokens during training.
+
+### Training & Inference
+
+![](/assets/posts/ai-ramp-up/image8.png)
+![](/assets/posts/ai-ramp-up/image10.png)
 
 ## Large Language Models (LLMs)
 
 Modern LLMs (like LLaMA) have evolved from the original Transformer. They typically rely on **Next Token Prediction** and use a **Decoder-only** architecture. 
+
+![](/assets/posts/ai-ramp-up/image1.png)
 
 To make these massive models efficient and effective, several advanced techniques have been introduced:
 
@@ -56,6 +71,7 @@ To make these massive models efficient and effective, several advanced technique
 
 *   **RMS Norm**: Root Mean Square Normalization normalizes each token's activations to prevent covariate shift, making training more stable and computationally cheaper than standard LayerNorm.
 *   **RoPE (Rotary Positional Embedding)**: Instead of adding positional encodings to embeddings, RoPE rotates the query and key representations at specific angles. This handles long-term decay effectively and generalizes better to longer sequences.
+    ![](/assets/posts/ai-ramp-up/image4.png)
 *   **KV Cache**: During inference, instead of recalculating Keys (K) and Values (V) for all previous tokens, the model keeps their computations in memory. It only calculates the Query (Q) for the final predicted token, drastically speeding up generation.
 *   **Grouped Multi-Query Attention**: Divides Query embeddings into $n$ heads, but shares a smaller number of heads for Keys and Values. This significantly reduces the size of the KV cache kept in memory during inference.
 *   **Flash Attention**: Since AI chips (GPUs) are highly memory-bound, Flash Attention is an algorithm that fuses operations and optimizes memory access (SRAM vs HBM), making attention calculation much faster without losing exactness.
