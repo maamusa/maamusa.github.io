@@ -20,13 +20,15 @@ So, I am writing this guide for myself and others who are in the same boat, to q
 Obviously, you will need to have a basic ML understanding beforehand to ride the wave. By basic, I mean you should have knowledge of Mathematics (Calculus, Probability, and Linear Algebra) and some knowledge of ML—how a basic ML model works, including Linear Regression, Neural Networks, and Loss Function optimization. 
 *Highly Recommended:* [Deep Learning Specialization by Andrew Ng](https://www.deeplearning.ai/courses/deep-learning-specialization/)
 
+![](/assets/posts/ai-ramp-up/image5.png)
+
 ---
 
 ## Let's Get Started
 
-Stating the obvious just for bookkeeping, the anchor point in the Generative AI stage was this seminal paper: **Attention Is All You Need!** You should remember all its authors—Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. (It's interesting to follow their news and their future impact in the AI industry).
+Stating the obvious just for bookkeeping, the anchor point in the Generative AI stage was this seminal paper: **[Attention Is All You Need!](https://arxiv.org/abs/1706.03762)** You should remember all its authors—Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. (It's interesting to follow their news and their future impact in the AI industry).
 
-To truly understand this paper, I highly recommend reading: [The Illustrated Transformer by Jay Alammar](https://jalammar.github.io/illustrated-transformer/). It provides a phenomenal model explanation (including math), inference, and training details.
+To truly understand this paper, I highly recommend reading: [The Illustrated Transformer by Jay Alammar](https://jalammar.github.io/illustrated-transformer/). It provides a phenomenal model explanation (including math), inference, and training details. You can also watch this great video breakdown: [Attention is all you need (Transformer) - Model explanation](https://youtu.be/bCz4OMemCcA).
 
 ### Objective
 Create a model for a sequence-to-sequence task. Given a sequence of data (called tokens), the objective is to predict the next token.
@@ -64,6 +66,8 @@ Transformers solved the limitations of RNNs using an **Encoder-Decoder** archite
 Modern LLMs (like LLaMA) have evolved from the original Transformer. They typically rely on **Next Token Prediction** and use a **Decoder-only** architecture. 
 
 ![](/assets/posts/ai-ramp-up/image1.png)
+
+*(For a deep dive into how these apply to LLaMA, check out: [LLaMA explained: KV-Cache, RoPE, RMS Norm, Grouped Query Attention, SwiGLU](https://youtu.be/Mn_9W1nCFLo))*
 
 To make these massive models efficient and effective, several advanced techniques have been introduced:
 
