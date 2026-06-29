@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/content/drafts/begin-coding-website.md",
+                "file": "src/content/drafts/music-journey.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "begin-coding-website"
+              "title": "music-journey"
             }
           }
         ]
@@ -183,8 +183,12 @@
       "bases:Create new base": false
     }
   },
-  "active": "9c63fba4cff94752",
+  "active": "66341ab91401209b",
   "lastOpenFiles": [
+    "public/assets/posts/default-cat.png",
+    "src/content/drafts/begin-coding-website.md",
+    "src/content/drafts/music-journey.md",
+    "src/content/drafts/monthly-news-mayank-musaddi.md",
     "public/CNAME",
     "dist/index.html",
     "dist/projects/shell-and-databases/index.html",
@@ -195,7 +199,6 @@
     "dist/projects/football-tracker/index.html",
     "dist/projects/felicity-app/index.html",
     "dist/projects/document-scanner/index.html",
-    "dist/projects/cipher-forces/index.html",
     "dist/media/netrex.png",
     "dist/media/netrex.gif",
     "dist/media/model.png",
@@ -207,9 +210,7 @@
     "dist/assets/posts/ai-ramp-up/image8.png",
     "dist/assets/posts/ai-ramp-up/image7.png",
     "src/content/posts/ai-ramp-up.md",
-    "src/content/drafts/monthly-news-mayank-musaddi.md",
     "src/content/_templates/blog-template.md",
-    "src/content/drafts/begin-coding-website.md",
     "src/content/posts/do-not-go-gentle-into-that-good-night.md",
     "src/content/posts/interactive-circle.md",
     "src/content/posts/open-ended-movies.md",

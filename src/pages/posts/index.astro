@@ -41,7 +41,7 @@ const uniqueTags = [...new Set(posts.flatMap(post => post.data.tags || []))].sor
             data-tags={(post.data.tags || []).join(",")}
           >
             <Image
-              src={post.data.image ? post.data.image.url : "/favicon.svg"}
+              src={post.data.image ? post.data.image.url : "/assets/posts/default-cat.png"}
               alt={post.data.image ? post.data.image.alt : identity.name}
               width={100}
               height={100}
