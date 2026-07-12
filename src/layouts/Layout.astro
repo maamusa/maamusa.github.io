@@ -90,7 +90,7 @@ const { seo } = Astro.props;
         class="px-6 py-6 max-w-2xl mx-auto flex items-center justify-between"
       >
         <a href="/">
-          <span class="font-bold text-xl hover:opacity-80 transition-opacity" style="font-family: 'Satoshi', sans-serif;">{identity.name}</span>
+          <span class="font-bold text-xl hover:opacity-80 transition-opacity" style="font-family: 'Segoe UI', sans-serif;">{identity.name}</span>
         </a>
 
         <div class="flex items-center gap-1">
@@ -113,12 +113,12 @@ const { seo } = Astro.props;
   @import url("https://api.fontshare.com/v2/css?f[]=satoshi@700,900&display=swap");
 
   :root {
-    --bg-color: #ffffff;
-    --text-color: #000000;
+    --bg-color: #fafaf8;
+    --text-color: #111827;
   }
   :root.dark {
-    --bg-color: #000000;
-    --text-color: #ffffff;
+    --bg-color: oklch(20.5% 0 0);
+    --text-color: #fafaf8;
   }
 
   html {

@@ -23,9 +23,8 @@ posts.splice(2)
       </button>
     </div>
     <div class="mb-6 mt-6 min-h-[4rem] sm:min-h-[3rem]">
-      <h2 class="font-bold text-xl sm:text-2xl mb-2 relative inline-block" id="typewriter">
-        <span class="sr-only">I teach machines how to think so humans can do less.</span>
-        <span id="typewriter-text" aria-hidden="true"></span><span id="cursor" class="inline-block w-[3px] h-[1.1em] bg-current align-middle ml-1 -mt-1 opacity-100"></span>
+      <h2 class="font-bold text-xl sm:text-2xl mb-2">
+        I teach machines how to think so humans can do less.
       </h2>
       <p class="text-sm opacity-60">Senior AI Engineer @ Google.</p>
     </div>
@@ -97,33 +96,5 @@ posts.splice(2)
     </div>
   </section>
 
-  <style>
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-    .cursor-blink {
-      animation: blink 1s step-end infinite;
-    }
-  </style>
 
-  <script>
-    const text = "I teach machines how to think so humans can do less.";
-    const typewriterText = document.getElementById('typewriter-text');
-    const cursor = document.getElementById('cursor');
-    
-    if (typewriterText && cursor) {
-      let i = 0;
-      function typeWriter() {
-        if (i < text.length) {
-          typewriterText!.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(typeWriter, 50); // Speed of typing
-        } else {
-          cursor!.classList.add('cursor-blink');
-        }
-      }
-      setTimeout(typeWriter, 300); // Initial delay
-    }
-  </script>
 </Layout>
