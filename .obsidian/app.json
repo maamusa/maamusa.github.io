@@ -1,4 +1,5 @@
 {
   "useMarkdownLinks": true,
-  "attachmentFolderPath": "./public/assets/posts"
+  "attachmentFolderPath": "./public/assets/posts",
+  "promptDelete": false
 }

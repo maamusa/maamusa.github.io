@@ -4,12 +4,12 @@ description: "A developer's guide to integrating a chat copilot to elevate your 
 pubDate: 2024-03-03
 author: "Mayank Musaddi"
 image:
-  url: "https://miro.medium.com/v2/resize:fit:700/1*V212VBTal3O2ZSYYB3E5Vg.jpeg"
+  url: "/assets/posts/flying-cat.png"
   alt: "Chat Copilot Post Image"
 tags: ["Tech"]
 ---
 
-![Chat Copilot Post Image](https://miro.medium.com/v2/resize:fit:700/1*V212VBTal3O2ZSYYB3E5Vg.jpeg)
+![Chat Copilot Post Image](/assets/posts/flying-cat.png)
 
 Copilot Cat
 

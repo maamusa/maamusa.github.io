@@ -4,12 +4,12 @@ description: "A comprehensive guide on leveraging Large Language Models (LLMs) t
 pubDate: 2024-05-12
 author: "Mayank Musaddi"
 image:
-  url: "https://miro.medium.com/v2/resize:fit:700/1*C-P9oefA8TVTLAsNGP-BWg.jpeg"
+  url: "/assets/posts/rainbow-cat.png"
   alt: "LLM Post Image"
 tags: ["Tech"]
 ---
 
-![LLM Post Image](https://miro.medium.com/v2/resize:fit:700/1*C-P9oefA8TVTLAsNGP-BWg.jpeg)
+![LLM Post Image](/assets/posts/rainbow-cat.png)
 
 **“ChatGPT broke the Turing test.”!**
 

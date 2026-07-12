@@ -11,14 +11,10 @@
             "id": "66341ab91401209b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "src/content/drafts/music-journey.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "music-journey"
+              "title": "New tab"
             }
           }
         ]
@@ -183,11 +179,17 @@
       "bases:Create new base": false
     }
   },
-  "active": "66341ab91401209b",
+  "active": "9c63fba4cff94752",
   "lastOpenFiles": [
+    "Untitled.canvas",
+    "Untitled.base",
+    "2026-07-12.md",
+    "src/content/drafts/Travel.md",
+    "src/content/drafts/music-journey.md",
+    "public/assets/posts/rainbow-cat.png",
+    "public/assets/posts/flying-cat.png",
     "public/assets/posts/default-cat.png",
     "src/content/drafts/begin-coding-website.md",
-    "src/content/drafts/music-journey.md",
     "src/content/drafts/monthly-news-mayank-musaddi.md",
     "public/CNAME",
     "dist/index.html",
@@ -198,7 +200,6 @@
     "dist/projects/hyperbolic-spatial-transcriptomics/index.html",
     "dist/projects/football-tracker/index.html",
     "dist/projects/felicity-app/index.html",
-    "dist/projects/document-scanner/index.html",
     "dist/media/netrex.png",
     "dist/media/netrex.gif",
     "dist/media/model.png",
@@ -206,9 +207,6 @@
     "dist/logo.png",
     "dist/favicon.svg",
     "dist/assets/posts/ai-ramp-up/image3.png",
-    "dist/assets/posts/ai-ramp-up/image9.png",
-    "dist/assets/posts/ai-ramp-up/image8.png",
-    "dist/assets/posts/ai-ramp-up/image7.png",
     "src/content/posts/ai-ramp-up.md",
     "src/content/_templates/blog-template.md",
     "src/content/posts/do-not-go-gentle-into-that-good-night.md",
@@ -228,7 +226,6 @@
     "src/content/projects/shell-and-databases.md",
     "src/content/posts/Test 2.md",
     "src/content/posts/Test.md",
-    "src/content/posts/Untitled 1.md",
-    "src/content/posts/do-not-go-gentle-into-that-good-night 1.md"
+    "src/content/posts/Untitled 1.md"
   ]
 }
