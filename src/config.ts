@@ -53,12 +53,6 @@ export const socialLinks: SocialLink[] = [
     external: true,
   },
   {
-    title: "Instagram",
-    url: "https://www.instagram.com/mayankmusaddi/",
-    icon: "mdi:instagram",
-    external: true,
-  },
-  {
     title: "X",
     url: "https://x.com/maamusa_",
     icon: "mdi:twitter",
