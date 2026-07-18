@@ -11,10 +11,14 @@
             "id": "66341ab91401209b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "src/content/drafts/career-journey.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "career-journey"
             }
           }
         ]
@@ -179,13 +183,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "9c63fba4cff94752",
+  "active": "66341ab91401209b",
   "lastOpenFiles": [
+    "src/content/posts/what-its-all-for.md",
+    "src/content/drafts/poem.md",
+    "src/content/drafts/music-journey.md",
+    "src/content/drafts/Untitled.md",
+    "src/content/drafts/career-journey.md",
+    "dist/assets/posts/1-1.jpg",
     "Untitled.canvas",
     "Untitled.base",
     "2026-07-12.md",
     "src/content/drafts/Travel.md",
-    "src/content/drafts/music-journey.md",
     "public/assets/posts/rainbow-cat.png",
     "public/assets/posts/flying-cat.png",
     "public/assets/posts/default-cat.png",
@@ -206,7 +215,6 @@
     "dist/media/hierarchy.png",
     "dist/logo.png",
     "dist/favicon.svg",
-    "dist/assets/posts/ai-ramp-up/image3.png",
     "src/content/posts/ai-ramp-up.md",
     "src/content/_templates/blog-template.md",
     "src/content/posts/do-not-go-gentle-into-that-good-night.md",
@@ -223,9 +231,6 @@
     "README.md",
     "AGENTS.md",
     "src/content/posts/monthly-news-mayank-musaddi.md",
-    "src/content/projects/shell-and-databases.md",
-    "src/content/posts/Test 2.md",
-    "src/content/posts/Test.md",
-    "src/content/posts/Untitled 1.md"
+    "src/content/projects/shell-and-databases.md"
   ]
 }
