@@ -2,6 +2,7 @@
 title: What It's All For
 description: A reflection on the unspoken cost of fixing the past, where achieving success meant forgetting how to live.
 pubDate: 2026-07-18
+author: "Mayank Musaddi"
 tags:
   - Personal
   - Poetry
