@@ -1,5 +1,5 @@
 ---
-title: "The Blueprint of a Successful Protest: Lessons from India's CJP Movement"
+title: "The Blueprint of a Successful Protest"
 description: "Analyzing the rapid success of the July 2026 Cockroach Janta Party protests in the world's largest democracy."
 pubDate: 2026-07-27
 author: "Mayank Musaddi"
