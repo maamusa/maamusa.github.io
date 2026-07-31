@@ -8,8 +8,6 @@ image:
   alt: "CJP Intro"
 tags:
   - Politics
-  - Society
-  - India
 ---
 
 There is a wave of student protests currently echoing across India. As an observer, I have taken the role of eagerly listening and consuming varying opinions, ideologies, and perspectives—even those I may not entirely agree with. 
