@@ -94,11 +94,11 @@ export const aboutPageContent: AboutPageContent = {
   },
   subtitle: "Some information about myself",
   about: {
-    description: `I build AI. I look at data, point at an apple, and tell a computer it's an apple until it believes me. My goal is to teach algorithms to do human tasks faster, though I'm fully aware our industry is wildly overcompensated for doing so.
+    description: `I am a Senior AI Engineer working on building and training artificial intelligence models. My job is to teach computers how to handle human tasks more effectively. I enjoy breaking down complex problems and writing clean, reliable code.
 
-I don't build blindly. If you hand me a task, expect to debate the why before I execute the how. When I do work, I don't sit still—if a problem is hard enough, I will walk a marathon before the model finishes training.
+I believe in understanding the "why" before jumping into the "how." For me, building good software is about having clear goals and solving the right problems.
 
-I live in extremes. I protect my peace by keeping my life as pristine as my codebase (access is strictly 403 Forbidden). But I balance that intensity with deep dives into philosophy and mastering Hans Zimmer on the piano. We’ll get along perfectly if you bring good arguments, respect my space, and remember my one rule for social interaction: no high-fives, just nod from a safe distance.`,
+Outside of work, I like to keep a good balance. I spend my free time reading about philosophy and playing the piano. I appreciate good conversations, continuous learning, and keeping things organized.`,
     image_l: {
       url: "/demo-1.jpg",
       alt: "Left Picture",
