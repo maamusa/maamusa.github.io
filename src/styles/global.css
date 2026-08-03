@@ -1,3 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:is(.dark *));
+
+.dark img[src*="/assets/posts/birds/"][src$=".png"] {
+  filter: invert(1);
+}
