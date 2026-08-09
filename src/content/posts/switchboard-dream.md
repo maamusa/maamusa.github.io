@@ -1,7 +1,7 @@
 ---
 title: The Switchboard Dream
 description: A reflection on the Mechanics of dreams
-pubDate: 2023-05-17
+pubDate: 2026-08-09
 author: Mayank Musaddi
 tags:
   - Personal
@@ -24,3 +24,5 @@ As one dream ended, I would wake up or transition directly into another. After s
 "Am I still dreaming?" I asked myself. Maybe not, because it seems too slow, and just a bit too colorful.
 
 In hindsight, whenever you try to recollect and summarize your past to describe it—whether to someone else or even just to yourself—it always feels incredibly fast, short, and entirely devoid of color.
+
+*~Dreamt on 17th May, 2023.*
