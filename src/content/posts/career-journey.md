@@ -1,5 +1,5 @@
 ---
-title: "Chasing the 11-Year-Old's Dream 🚀"
+title: "Chasing the 11-Year-Old's Dream"
 description: "A nostalgic look back at dismantled computers, rebel code, and finding my place in the tech world."
 pubDate: 2026-08-16
 author: Mayank Musaddi
