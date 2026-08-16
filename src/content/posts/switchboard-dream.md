@@ -6,7 +6,6 @@ author: Mayank Musaddi
 tags:
   - Personal
   - Philosophy
-  - Dream
 image:
   url: "/assets/posts/switchboard-cat.png"
   alt: "SwitchBoard"
