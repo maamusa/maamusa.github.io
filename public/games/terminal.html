@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Terminal Games</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0e14;
+      font-family: 'Fira Code', monospace;
+      color: #b3b1ad;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: #1a1e24;
+      border-bottom: 1px solid #2a2e34;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .terminal-header .dots { display: flex; gap: 6px; }
+    .terminal-header .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .terminal-header .dot.red { background: #ff5f56; }
+    .terminal-header .dot.yellow { background: #ffbd2e; }
+    .terminal-header .dot.green { background: #27c93f; }
+    .terminal-header .title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: #5c6773;
+    }
+    #terminal {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 11px;
+      line-height: 1.3;
+      scrollbar-width: thin;
+      scrollbar-color: #2a2e34 transparent;
+    }
+    #terminal::-webkit-scrollbar { width: 6px; }
+    #terminal::-webkit-scrollbar-track { background: transparent; }
+    #terminal::-webkit-scrollbar-thumb { background: #2a2e34; border-radius: 3px; }
+    .input-line {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: #1a1e24;
+      border-top: 1px solid #2a2e34;
+      flex-shrink: 0;
+    }
+    .input-line .prompt {
+      color: #39bae6;
+      margin-right: 8px;
+      font-size: 14px;
+    }
+    .input-line input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e6e1cf;
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      caret-color: #39bae6;
+    }
+    .green { color: #27c93f; }
+    .cyan { color: #39bae6; }
+    .yellow { color: #ffbd2e; }
+    .red { color: #ff5f56; }
+    .bold { font-weight: 700; }
+    .dim { opacity: 0.6; }
+
+    /* CRT scanline effect */
+    #terminal::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal-header">
+    <div class="dots">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <div class="title">java-terminal-games — MainMenu</div>
+  </div>
+  <div id="terminal"></div>
+  <div class="input-line">
+    <span class="prompt">❯</span>
+    <input id="input" type="text" autofocus autocomplete="off" spellcheck="false" />
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // TERMINAL ENGINE
+    // ═══════════════════════════════════════════════════════════════
+    const termEl = document.getElementById('terminal');
+    const inputEl = document.getElementById('input');
+    let inputResolve = null;
+
+    function print(text) {
+      termEl.textContent += text;
+      termEl.scrollTop = termEl.scrollHeight;
+    }
+    function println(text = '') {
+      print(text + '\n');
+      termEl.scrollTop = termEl.scrollHeight;
+    }
+    function cls() {
+      termEl.textContent = '';
+    }
+    function sleep(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+    function readLine(prompt = '') {
+      if (prompt) print(prompt);
+      inputEl.value = '';
+      inputEl.focus();
+      return new Promise(resolve => {
+        inputResolve = resolve;
+      });
+    }
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && inputResolve) {
+        const val = inputEl.value;
+        println(val);
+        inputEl.value = '';
+        const r = inputResolve;
+        inputResolve = null;
+        r(val);
+      }
+    });
+
+    // Click anywhere to focus input
+    document.addEventListener('click', () => inputEl.focus());
+
+    // ═══════════════════════════════════════════════════════════════
+    // MAIN MENU
+    // ═══════════════════════════════════════════════════════════════
+    async function mainMenu() {
+      while (true) {
+        cls();
+        println("=================================================");
+        println("  _   _                 _               _        ");
+        println(" | | | |               | |             | |       ");
+        println(" | |_| | ___  _ __ ___ | |__   ___  ___| | _____ ");
+        println(" |  _  |/ _ \\| '_ ` _ \\| '_ \\ / _ \\/ __| |/ / __|");
+        println(" | | | | (_) | | | | | | |_) | (_) \\__ \\   <\\__ \\");
+        println(" \\_| |_/\\___/|_| |_| |_|_.__/ \\___/|___/_|\\_\\___/");
+        println("=================================================");
+        println("              JAVA TERMINAL GAMES                ");
+        println("=================================================");
+        println("1. Tic Tac Toe");
+        println("2. Connect 4");
+        println("3. BlackJack");
+        println("4. Poker");
+        println("5. Threes");
+        println("6. Cows And Bulls");
+        println("7. WalkMan");
+        println("8. Elevator");
+        println("9. Exit");
+        println("=================================================");
+        const input = await readLine("Enter the number of the game you want to play: ");
+        const choice = parseInt(input.trim());
+        if (isNaN(choice) || choice < 1 || choice > 9) {
+          println("Invalid input. Please enter a number between 1 and 9.");
+          await sleep(1500);
+          continue;
+        }
+        try {
+          switch (choice) {
+            case 1: cls(); println("\nStarting Tic Tac Toe...\n"); await ticTacToe(); break;
+            case 2: cls(); println("\nStarting Connect 4...\n"); await connect4(); break;
+            case 3: cls(); println("\nStarting BlackJack...\n"); await blackJack(); break;
+            case 4: cls(); println("\nStarting Poker...\n"); await poker(); break;
+            case 5: cls(); println("\nStarting Threes...\n"); await threes(); break;
+            case 6: cls(); println("\nStarting Cows And Bulls...\n"); await cowsAndBulls(); break;
+            case 7: cls(); println("\nStarting WalkMan...\n"); await walkMan(); break;
+            case 8: cls(); println("\nStarting Elevator...\n"); await elevator(); break;
+            case 9: cls(); println("Exiting... Thanks for playing!"); return;
+          }
+        } catch (e) {
+          println("\nAn error occurred while running the game: " + e.message);
+        }
+        println("\nReturning to Main Menu...\n");
+        await sleep(1000);
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 1. TIC TAC TOE
+    // ═══════════════════════════════════════════════════════════════
+    async function ticTacToe() {
+      let arr = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
+
+      function printBoard() {
+        for (let i = 0; i < 3; i++) {
+          let k = 0;
+          for (let j = 0; j < 5; j++) {
+            if (j % 2 === 0) print("  " + arr[i][k++]);
+            else print(" |");
+          }
+          println();
+          if (i !== 2) println("______________");
+        }
+      }
+
+      function check() {
+        let m = arr[0][0], n = arr[0][2];
+        let h = 0, r = 0;
+        for (let i = 0; i < 3; i++) {
+          let k = arr[i][0], l = arr[0][i], f = 1, g = 1;
+          for (let j = 1; j < 3; j++) {
+            if (arr[i][j] === k) f++;
+            if (arr[j][i] === l) g++;
+          }
+          if (f === 3 && k !== ' ') return k;
+          if (g === 3 && l !== ' ') return l;
+          if (arr[i][i] === m) h++;
+          if (arr[i][2 - i] === n) r++;
+        }
+        if (h === 3 && m !== ' ') return m;
+        if (r === 3 && n !== ' ') return n;
+        return 'n';
+      }
+
+      async function accept(ch) {
+        const input = await readLine("Enter Position for " + ch + " (1-9): ");
+        const n = parseInt(input);
+        cls();
+        if (n > 9 || n < 1) {
+          println("Aukat ke BAHAR MATT JAA");
+          printBoard();
+          return accept(ch);
+        }
+        const q = (n - 1) % 3, p = Math.floor((n - 1) / 3);
+        if (arr[p][q] === ' ') arr[p][q] = ch;
+        else {
+          println("Occupado.");
+          printBoard();
+          return accept(ch);
+        }
+      }
+
+      cls();
+      printBoard();
+      for (let i = 0; i < 9; i++) {
+        if (i % 2 === 0) await accept('O');
+        else await accept('X');
+        printBoard();
+        if (check() === 'O') { println("O : Tumse naa hoo payi "); break; }
+        if (check() === 'X') { println("X tera treat"); break; }
+        if (i === 8) println("Tumlog se naa hoo payi");
+      }
+      const op = await readLine("Do u want to play again(Y/N) ? ");
+      if (op.charAt(0) === 'Y' || op.charAt(0) === 'y') return ticTacToe();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 2. CONNECT 4
+    // ═══════════════════════════════════════════════════════════════
+    async function connect4() {
+      const sc = { nextInt: async (prompt) => parseInt(await readLine(prompt)), nextLine: async (prompt) => await readLine(prompt) };
+      let mainChoice;
+      do {
+        let arr = Array.from({length:7}, () => Array(7).fill(' '));
+        let c = Array(7).fill(0);
+
+        function display() {
+          cls();
+          println("\nWelcome to Shubham Periwal's CONNECT 4!");
+          println("\n| 1 | 2 | 3 | 4 | 5 | 6 | 7 |");
+          println("____________________________");
+          for (let i = 0; i < 7; i++) {
+            let row = '';
+            for (let j = 0; j < 7; j++) {
+              if (j === 0) row += '| ';
+              row += (arr[i][j] === 'X' || arr[i][j] === 'O' ? arr[i][j] : ' ') + ' | ';
+            }
+            println(row);
+            println("____________________________");
+          }
+        }
+
+        function isFull(r) { return arr[0][r] === 'X' || arr[0][r] === 'O'; }
+
+        function insert(p, r) {
+          let i = c[r]; c[r]++;
+          arr[6 - i][r] = (p % 2 === 0) ? 'O' : 'X';
+        }
+
+        function isOver(choice, r) {
+          let cnt1 = 0, cnt2 = 0, col = c[r], curr;
+          // vertical
+          if (col >= 4) {
+            cnt1 = 0; cnt2 = 0;
+            for (let i = 6; i >= 0; i--) {
+              if (arr[i][r] === 'X') { cnt2++; cnt1 = 0; }
+              else if (arr[i][r] === 'O') { cnt1++; cnt2 = 0; }
+              else { cnt1 = 0; cnt2 = 0; }
+            }
+            if (cnt2 >= 4) {
+              println(choice === 1 ? "Aaj khush toh bohot hoge tum...Computer ko hara ke" : "X WINS!");
+              return true;
+            }
+            if (cnt1 >= 4) {
+              println(choice === 1 ? "Saale doob marr chutki bhar paani mein! Khela ses" : "O WINS!");
+              return true;
+            }
+          }
+          // horizontal
+          for (let j = 0; j < 4; j++) {
+            curr = arr[7 - col][j];
+            if ((curr === 'X' || curr === 'O') && curr === arr[7 - col][j + 1] && curr === arr[7 - col][j + 2] && curr === arr[7 - col][j + 3]) {
+              println(choice === 1 ? (curr === 'X' ? "Aaj khush toh bohot hoge tum...Computer ko hara ke" : "Saale doob marr chutki bhar paani mein! Khela ses") : curr + " WINS!!");
+              return true;
+            }
+          }
+          // left diagonal
+          for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+            curr = arr[i][j];
+            if ((curr === 'X' || curr === 'O') && curr === arr[i+1][j+1] && curr === arr[i+2][j+2] && curr === arr[i+3][j+3]) {
+              println(choice === 1 ? (curr === 'X' ? "Aaj khush toh bohot hoge tum...Computer ko hara ke" : "Saale doob marr chutki bhar paani mein! Khela ses") : curr + " WINS!!");
+              return true;
+            }
+          }
+          // right diagonal
+          for (let i = 0; i < 4; i++) for (let j = 6; j > 2; j--) {
+            curr = arr[i][j];
+            if ((curr === 'X' || curr === 'O') && curr === arr[i+1][j-1] && curr === arr[i+2][j-2] && curr === arr[i+3][j-3]) {
+              println(choice === 1 ? (curr === 'X' ? "Aaj khush toh bohot hoge tum...Computer ko hara ke" : "Saale doob marr chutki bhar paani mein! Khela ses") : curr + " WINS!!");
+              return true;
+            }
+          }
+          // draw
+          let full = true;
+          for (let i = 0; i < 7; i++) for (let j = 0; j < 7; j++) if (arr[i][j] !== 'X' && arr[i][j] !== 'O') full = false;
+          if (full) { println("GAME DRAW!"); return true; }
+          return false;
+        }
+
+        println("\nWelcome to Shubham Periwal's CONNECT 4!");
+        println("\nGAME MENU OPTIONS");
+        println("1.Awww poor baby is playing alone? Press 1");
+        println("2.You got another 1 to waste time with you? Cool. Press 2");
+        println("3.Read the rules. Learn how you're gonna waste your time. Press 3");
+        println("4.Get the hell outta here. Press 4");
+        mainChoice = parseInt(await readLine("\nEnter your choice man..I dont have all day! "));
+        if (mainChoice === 1 || mainChoice === 2) display();
+
+        let p = 1, r = 0, gameOver = false;
+        while (!gameOver) {
+          if (mainChoice === 1 || mainChoice === 2) {
+            if (mainChoice === 1) {
+              if (p % 2 === 1) {
+                r = parseInt(await readLine("\nEnter the column number: "));
+              } else {
+                r = Math.floor(Math.random() * 7) + 1;
+                println("\nComputer selects column: " + r);
+              }
+            } else {
+              r = parseInt(await readLine("\nEnter fast player #" + (p % 2 + 1) + ": "));
+            }
+            if (r === 0) { println("EXIT. Thank you for wasting my charge loser. Get a LIFE"); mainChoice = 4; break; }
+            if (r < 1 || r > 7) { println("You blind Gatsby! Where can you see column #" + r + "!"); }
+            else {
+              if (!isFull(r - 1)) insert(p++, r - 1);
+              else { println("This column is full..try another 1"); p--; if (isOver(mainChoice, r - 1)) break; continue; }
+              display();
+              if (isOver(mainChoice, r - 1)) break;
+            }
+          } else if (mainChoice === 3) {
+            cls(); println("RULES FOR WASTING YOUR TIME");
+            println("\nEnter the column number in which you want to enter your coin.");
+            println("Make a combination of 4 similar coins to win the game.");
+            println("Combination may be horizontal, vertical, or diagonal.");
+            println("Press 0 to exit at any point of time. ");
+            println("\nUnderstood idiot? Now get started!");
+            break;
+          } else if (mainChoice === 4) { println("Wise decision. Now go study!"); break; }
+          else { println("Read the menu you illiterate buffoon. Enter correctly!"); break; }
+        }
+        if (r !== 0 && (mainChoice === 1 || mainChoice === 2)) {
+          println("\nEk aur game ki keemat tum kya jaano player babu! ");
+          const ch = await readLine("Press 'y' to find out and 'n' to go back to your momma: ");
+          if (ch.charAt(0) === 'Y' || ch.charAt(0) === 'y') { println("Shabaash"); }
+          else if (ch.charAt(0) === 'N' || ch.charAt(0) === 'n') { println("Wise decision. Go study!"); return; }
+          else { println("Sasura 'y' ya 'n' enter karne ka tha!"); }
+        }
+      } while (mainChoice !== 4);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 3. BLACKJACK
+    // ═══════════════════════════════════════════════════════════════
+    async function blackJack() {
+      let w = 0, l = 0, dr = 0;
+
+      function getCard() {
+        let x = Math.floor(Math.random() * 13) + 1;
+        return x;
+      }
+
+      function cardChar(x) {
+        if (x === 11) return 'J';
+        if (x === 12) return 'Q';
+        if (x === 13) return 'K';
+        if (x === 1) return 'A';
+        return String(x);
+      }
+
+      function printCards(d, p, dt, pt) {
+        cls();
+        println("Dealer :                                               WINS:" + w + " LOSSES:" + l + " DRAWS:" + dr);
+        if (dt >= 0) {
+          for (let i = 0; i < 5; i++) {
+            let line = '';
+            for (let j = 0; j <= dt; j++) {
+              const k = cardChar(d[j]);
+              if (i === 0) line += "  _______ ";
+              if (i === 1) line += (d[j] === 10 ? " |10     |" : " |" + k + "      |");
+              if (i === 2) line += " |       |";
+              if (i === 3) line += (d[j] === 10 ? " |     10|" : " |      " + k + "|");
+              if (i === 4) line += " '-------'";
+            }
+            println(line);
+          }
+        }
+        println("Player :");
+        if (pt >= 0) {
+          for (let i = 0; i < 5; i++) {
+            let line = '';
+            for (let j = 0; j <= pt; j++) {
+              const k = cardChar(p[j]);
+              if (i === 0) line += "  _______ ";
+              if (i === 1) line += (p[j] === 10 ? " |10     |" : " |" + k + "      |");
+              if (i === 2) line += " |       |";
+              if (i === 3) line += (p[j] === 10 ? " |     10|" : " |      " + k + "|");
+              if (i === 4) line += " '-------'";
+            }
+            println(line);
+          }
+        }
+      }
+
+      function sum(arr, l) {
+        let s = 0, c = 0;
+        for (let i = 0; i <= l; i++) {
+          if (arr[i] >= 11) s += 10;
+          else if (arr[i] === 1) { s += 1; c++; }
+          else s += arr[i];
+        }
+        for (let i = 0; i < c; i++) { if (s + 10 <= 21) s += 10; }
+        return s;
+      }
+
+      async function play() {
+        let d = [], p = [], dt = -1, pt = -1, flag = 0, z = 0;
+        printCards(d, p, dt, pt);
+        await sleep(300);
+        d[++dt] = getCard();
+        printCards(d, p, dt, pt);
+        await sleep(300);
+        p[++pt] = getCard();
+        printCards(d, p, dt, pt);
+        await sleep(300);
+        let ch;
+        do {
+          p[++pt] = getCard();
+          printCards(d, p, dt, pt);
+          await sleep(300);
+          if (sum(d, dt) === 10 || sum(d, dt) === 11) {
+            d[++dt] = getCard();
+            if (sum(d, dt) === 21) {
+              printCards(d, p, dt, pt);
+              println("DEALER HAS A BLACKJACK, PLAYER LOSES!!!");
+              flag = 2; break;
+            } else { --dt; z = 1; }
+          }
+          if (pt === 1 && sum(p, pt) === 21) {
+            println("PLAYER HAS A BLACKJACK, PLAYER WINS!!!");
+            flag = 1; break;
+          }
+          if (sum(p, pt) > 21) {
+            println("PLAYER BUSTED, PLAYER LOSES!!!");
+            flag = 2; break;
+          }
+          println("Hit or Stand(H/S)?");
+          do {
+            ch = (await readLine()).charAt(0).toUpperCase();
+            if (ch !== 'H' && ch !== 'S') println("Wrong Input. Try Again");
+          } while (ch !== 'H' && ch !== 'S');
+        } while (ch === 'H');
+
+        if (flag === 0) {
+          if (z === 1) ++dt;
+          while (sum(d, dt) <= sum(p, pt)) {
+            if (sum(d, dt) === 16) { d[++dt] = getCard(); printCards(d, p, dt, pt); await sleep(300); }
+            if (sum(d, dt) === 17) break;
+            if (sum(d, dt) > 21) { flag = 1; break; }
+            d[++dt] = getCard();
+            printCards(d, p, dt, pt);
+            await sleep(300);
+          }
+          printCards(d, p, dt, pt);
+          if (flag === 1) println("DEALER BUSTED, PLAYER WINS!!!");
+          else if (sum(d, dt) > sum(p, pt) && sum(d, dt) <= 21) { flag = 2; println("PLAYER LOSES, DEALER WINS!!!"); }
+          else if (sum(d, dt) === sum(p, pt)) { flag = 3; println("DRAW!!!"); }
+          else { flag = 1; println("DEALER LOSES, PLAYER WINS!!!"); }
+        }
+        if (flag === 1) w++;
+        else if (flag === 2) l++;
+        else if (flag === 3) dr++;
+
+        println("PLAY AGAIN (Y/N)?");
+        let k;
+        do {
+          k = (await readLine()).charAt(0).toUpperCase();
+          if (k !== 'Y' && k !== 'N') println("Wrong Input. Try Again");
+        } while (k !== 'Y' && k !== 'N');
+        if (k === 'Y') return play();
+        else { cls(); println("WINS:" + w + " LOSSES:" + l + " DRAWS:" + dr); }
+      }
+
+      let mainK;
+      outer:
+      do {
+        cls();
+        println("Choose your option:");
+        println("1. Play");
+        println("2. How to play");
+        println("3. Credits");
+        println("4. Exit");
+        println();
+        let ch;
+        do {
+          ch = parseInt(await readLine("Your Choice :"));
+          if (ch < 1 || ch > 4) println("Wrong Input. Try Again");
+        } while (ch < 1 || ch > 4);
+        switch (ch) {
+          case 1: await play(); break;
+          case 2:
+            cls();
+            println("GOAL : Your goal is to draw cards that total 21, or come closer to 21 than the dealer without going over.");
+            println(); println("HOW TO PLAY : "); println();
+            println(" The dealer and each player get two cards. The dealer's first card faces up, the second faces down.");
+            println(" Face cards each count as 10, Aces count as 1 or 11, all others count at face value.");
+            println(" Any First 2 cards with an Ace with any 10, Jack, Queen, or King is a BLACKJACK.");
+            println(" If you have a Blackjack, you Win.");
+            println(" If you don't have a Blackjack, you can ask the dealer to HIT you by typing \"H\".");
+            println(" You may draw as many cards as you like (one at a time), but if you go over 22, you BUST and lose.");
+            println(" If you do not want to HIT you may STAND by typing \"S\".");
+            println(" After all players are satisfied with their hands, the dealer will turn his or her down card face up and stand or draw as necessary.");
+            break;
+          case 3:
+            const creds = ["Produced by:", "Mayank Musaddi", "", "Written by:", "Mayank Musaddi", "", "Edited by:", "Mayank Musaddi", "", "Supervising Editor:", "Suyash Musaddi", "", "Additional Graphics:", "Mayank Musaddi", "", "Special Thanks:", "SabhyaSanchi Trivedi", "Sanchayan Rey"];
+            cls();
+            for (const c of creds) { println(c); await sleep(200); }
+            break;
+          case 4: cls(); println("Thank You For Playing.."); break outer;
+        }
+        println();
+        do {
+          mainK = (await readLine("Go back to the Main Menu (Y/N) :")).charAt(0).toUpperCase();
+          if (mainK !== 'Y' && mainK !== 'N') println("Wrong Input. Try Again");
+        } while (mainK !== 'Y' && mainK !== 'N');
+      } while (mainK === 'Y');
+      cls(); println("Thank You for Playing..  Come back soon.");
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 4. POKER
+    // ═══════════════════════════════════════════════════════════════
+    async function poker() {
+      println("\n\n\n\n\n\t\t*********************");
+      println("\t\t*\t\t    *");
+      println("\t\t*  WELCOME TO THE   *");
+      println("\t\t*  PERDHARY POKER   *");
+      println("\t\t*\t\t    *");
+      println("\t\t*********************");
+      const n1 = await readLine("\n\nEnter the name of first player: ");
+      const n2 = await readLine("\nEnter the name of second player: ");
+
+      let num1, num2, potNum, potCol, col1, col2;
+      let amt1, amt2, potAmt;
+      const colours = ["H", "D", "C", "S"];
+
+      function getCnt(arr, num) { return arr.filter(x => x === num).length; }
+      function isFlush(col) {
+        let c1 = col[0], c2 = col[1];
+        let cnt1 = c1 === c2 ? 2 : 1, cnt2 = 1;
+        for (let i = 0; i < 5; i++) { if (potCol[i] === c1) cnt1++; if (potCol[i] === c2) cnt2++; }
+        return cnt1 >= 5 || cnt2 >= 5;
+      }
+      function isStraight(num) {
+        for (let cnt = 1; cnt <= 10; cnt++) {
+          let count = 0;
+          for (let i = cnt; i < cnt + 5; i++) {
+            const a = (i === 1 || i === 14) ? "A" : i === 11 ? "J" : i === 12 ? "Q" : i === 13 ? "K" : String(i);
+            if (num[0] === a || num[1] === a) count++;
+            for (let j = 0; j < 5; j++) { if (potNum[j] === a && potNum[j] !== num[0] && potNum[j] !== num[1]) { count++; break; } }
+          }
+          if (count === 5) return true;
+        }
+        return false;
+      }
+      function isOnePair(num) {
+        if (num[0] === num[1]) return true;
+        for (let i = 0; i < 5; i++) if (getCnt(potNum, potNum[i]) === 2 || potNum[i] === num[0] || potNum[i] === num[1]) return true;
+        return false;
+      }
+      function isTrips(num) {
+        for (let i = 0; i < 5; i++) {
+          let count = getCnt(potNum, potNum[i]);
+          if (count === 3 || (count === 2 && (potNum[i] === num[0] || potNum[i] === num[1])) || (count === 1 && potNum[i] === num[0] && potNum[i] === num[1])) return true;
+        }
+        return false;
+      }
+      function isQuad(num) {
+        for (let i = 0; i < 5; i++) {
+          if (getCnt(potNum, potNum[i]) === 4 || (getCnt(potNum, potNum[i]) === 3 && (potNum[i] === num[0] || potNum[i] === num[1])) || (getCnt(potNum, potNum[i]) === 2 && potNum[i] === num[0] && potNum[i] === num[1])) return true;
+        }
+        return false;
+      }
+      function isDoublePair(num) {
+        let cnt = 0;
+        if (num[0] === num[1]) cnt++;
+        if (getCnt(potNum, num[0]) === 1) cnt++;
+        if (getCnt(potNum, num[1]) === 1) cnt++;
+        if (cnt >= 2) return true;
+        for (let i = 0; i < 5; i++) if (getCnt(potNum, potNum[i]) === 2 && potNum[i] !== num[0] && potNum[i] !== num[1]) cnt++;
+        return cnt > 2;
+      }
+      function getPower(num, col) {
+        if (isFlush(col) && isStraight(num)) return 2;
+        if (isQuad(num)) return 3;
+        if (isOnePair(num) && isTrips(num)) return 4;
+        if (isFlush(col)) return 5;
+        if (isStraight(num)) return 6;
+        if (isTrips(num)) return 7;
+        if (isDoublePair(num)) return 8;
+        if (isOnePair(num)) return 9;
+        return 10;
+      }
+      function printPokerCards(n, num, col) {
+        for (let i = 1; i <= 6; i++) {
+          let line = '';
+          for (let j = 0; j < n; j++) {
+            if (i === 1 || i === 6) line += " --------      ";
+            if (i === 2) line += "| " + num[j] + col[j] + (num[j] === "10" ? "" : " ") + "    |     ";
+            if (i === 3 || i === 4) line += "|        |     ";
+            if (i === 5) line += "| " + (num[j] === "10" ? "" : " ") + num[j] + col[j] + " |     ";
+          }
+          println(line);
+        }
+      }
+      function isPresent(n, c) {
+        for (let i = 0; i < 5; i++) {
+          if (i < 2) { if ((num1[i] === n && col1[i] === c) || (num2[i] === n && col2[i] === c)) return true; }
+          if (potNum[i] === n && potCol[i] === c) return true;
+        }
+        return false;
+      }
+      function genCard() {
+        let nu, cu;
+        do {
+          const no = Math.floor(Math.random() * 12) + 1;
+          const co = Math.floor(Math.random() * 3) + 1;
+          nu = no === 1 ? "A" : no === 11 ? "J" : no === 12 ? "Q" : no === 13 ? "K" : String(no);
+          cu = colours[co];
+        } while (isPresent(nu, cu));
+        return [nu, cu];
+      }
+
+      const pow = ["Royal Flush!", "Straight Flush", "Quads", "Full-House", "Flush", "Straight", "Trips", "Double Pair", "Single Pair", "BABAJI ka THULLU"];
+      let pokerChoice;
+      do {
+        num1 = [" "," "]; num2 = [" "," "]; potNum = [" "," "," "," "," "]; col1 = [" "," "]; col2 = [" "," "]; potCol = [" "," "," "," "," "];
+        amt1 = 1000; amt2 = 1000; potAmt = 20; amt1 -= 10; amt2 -= 10;
+        // Deal
+        for (let i = 0; i < 2; i++) { let [n, c] = genCard(); num1[i] = n; col1[i] = c; }
+        for (let i = 0; i < 2; i++) { let [n, c] = genCard(); num2[i] = n; col2[i] = c; }
+        for (let i = 0; i < 3; i++) { let [n, c] = genCard(); potNum[i] = n; potCol[i] = c; }
+
+        println("\nWELCOME TO JUARI'S HUB! You have 4 options idiots");
+        let n = 3, cnt = 0, amount = 0, choice = -1, prevChoice = -1, raise = 0;
+        do {
+          // Generate new pot card
+          if (n > 3) { let [nn, nc] = genCard(); potNum[n-1] = nn; potCol[n-1] = nc; }
+          amount = 0;
+          do {
+            cls();
+            println("Here's the POT:");
+            printPokerCards(5, potNum, potCol);
+            println("\nPot amount: " + potAmt);
+            println("Player #1: " + amt1 + "\t\tPlayer #2: " + amt2);
+            println("\nThese are the ONLY things you can do: ");
+            println("1. Check \n2. Call.\n3. Raise.\n4. Fold.\n5. See cards");
+            prevChoice = choice;
+            choice = parseInt(await readLine("\nEnter choice Player #" + (cnt % 2 + 1) + ": "));
+            switch (choice) {
+              case 1: if (potAmt > 20) println("You cannot CHECK now ASS!"); else cnt++; break;
+              case 2:
+                if (potAmt > 20) { let callAmt = Math.abs(raise - amount); if (++cnt % 2 === 1) amt1 -= Math.min(callAmt, amt1); else amt2 -= Math.min(callAmt, amt2); potAmt += raise; }
+                else println("\nYou cannot call shit genius!"); break;
+              case 3:
+                if (raise > 0 && prevChoice === 3) { if ((cnt+1)%2===1) amt1 -= Math.min(raise, amt1); else amt2 -= Math.min(raise, amt2); potAmt += raise; }
+                raise = parseInt(await readLine("\nEnter Raise amount: "));
+                amount += raise;
+                if (amt1 > amount && amt2 > amount && raise > (amount - raise)) { if (++cnt % 2 === 1) amt1 -= amount; else amt2 -= amount; potAmt += amount; }
+                else println("\nYo modafoka! Yo cant raise!"); amount -= raise; break;
+              case 4:
+                ++cnt; println((cnt % 2 === 0 ? n1 : n2) + " wins!");
+                amt1 = cnt % 2 === 0 ? amt1 + potAmt : amt1; amt2 = cnt % 2 === 1 ? amt2 + potAmt : amt2; n = 6; break;
+              case 5:
+                println("You can view your cards for the next 5 seconds: ");
+                println("The other one SHUT YOUR EYES!!");
+                if ((cnt + 1) % 2 === 1) printPokerCards(2, num1, col1);
+                else printPokerCards(2, num2, col2);
+                await sleep(3000); break;
+            }
+          } while ((choice === 1 && cnt === 1) || (choice === 2 && cnt === 0) || choice === 3 || choice === 5);
+
+          if (n === 5) {
+            println("\nPlayer #1:"); printPokerCards(2, num1, col1);
+            println("\nPlayer #2:"); printPokerCards(2, num2, col2);
+            let pow1 = getPower(num1, col1), pow2 = getPower(num2, col2);
+            println("\nPlayer #1: " + pow[pow1-1]);
+            println("Player #2: " + pow[pow2-1]);
+            if (pow1 < pow2) { println("\n" + n1 + " wins!"); amt1 += potAmt; }
+            else if (pow1 === pow2) { println("DRAW"); amt1 += Math.floor(potAmt/2); amt2 += Math.floor(potAmt/2); }
+            else { println("\n" + n2 + " wins!"); amt2 += potAmt; }
+          }
+          n++;
+        } while (n <= 5);
+        println("\n" + n1 + " has " + amt1 + "$");
+        println(n2 + " has " + amt2 + "$");
+        pokerChoice = (await readLine("\n\nDo you want to play again [Y/N] ? ")).charAt(0).toUpperCase();
+        if (pokerChoice === 'Y') println("\n\nGet ready to have a helluva time!");
+      } while (pokerChoice !== 'N');
+      cls();
+      println("\t ***********************************************");
+      println("\t*\t\t\t\t\t\t*");
+      println("\t*   Thank you for playing the PERDHARY poker!   *");
+      println("\t*   If you have any suggestions please visit:   *");
+      println("\t*\t  www.wedonotfuckingcare.com\t        *");
+      println("\t*\t\t\t\t\t\t*");
+      println("\t ***********************************************");
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 5. THREES
+    // ═══════════════════════════════════════════════════════════════
+    async function threes() {
+      let arr = Array.from({length:4}, () => Array(4).fill(0));
+      let inTile;
+
+      function ranNo() { return Math.floor(Math.random() * 4); }
+
+      // Initialize
+      for (let k = 0; k < 3;) { let i = ranNo(), j = ranNo(); if (arr[i][j] === 0) { arr[i][j] = 1; k++; } }
+      for (let k = 0; k < 3;) { let i = ranNo(), j = ranNo(); if (arr[i][j] === 0) { arr[i][j] = 2; k++; } }
+      for (let k = 0; k < 3;) { let i = ranNo(), j = ranNo(); if (arr[i][j] === 0) { arr[i][j] = 3; k++; } }
+
+      function display() {
+        for (let i = 0; i < 4; i++) {
+          for (let k = 0; k < 4; k++) {
+            let line = '';
+            for (let j = 0; j < 4; j++) {
+              const n = 3 - (arr[i][j] > 0 ? Math.floor(Math.log10(arr[i][j])) : 0);
+              if (k === 0) line += "  ____  ";
+              if (k === 1) line += " |    | ";
+              if (k === 2) { if (arr[i][j] === 0) line += " |    | "; else { line += " |" + arr[i][j] + " ".repeat(Math.max(0,n)) + "| "; } }
+              if (k === 3) line += " '----' ";
+            }
+            println(line);
+          }
+        }
+      }
+
+      function canMerge(a, b) { if (b === 0 && a !== 0) return true; if ((a === 1 && b === 2) || (a === 2 && b === 1)) return true; if (a === b && a >= 3) return true; return false; }
+      function merge(a, b) { if (b === 0) return [0, a]; if (a + b === 3) return [0, 3]; if (a === b) return [0, 2 * a]; return null; }
+
+      function moveDir(dir, exec) {
+        let moved = 0;
+        const a = arr;
+        if (dir === 'right') {
+          for (let j = 2; j >= 0; j--) for (let i = 0; i < 4; i++) { if (canMerge(a[i][j], a[i][j+1])) { if (exec) { const [nv, mv] = merge(a[i][j], a[i][j+1]); a[i][j] = nv; a[i][j+1] = mv; } moved++; } }
+          if (exec && moved > 0) { let k; do { k = ranNo(); } while(a[k][0] !== 0); a[k][0] = inTile; }
+        } else if (dir === 'left') {
+          for (let j = 1; j < 4; j++) for (let i = 0; i < 4; i++) { if (canMerge(a[i][j], a[i][j-1])) { if (exec) { const [nv, mv] = merge(a[i][j], a[i][j-1]); a[i][j] = nv; a[i][j-1] = mv; } moved++; } }
+          if (exec && moved > 0) { let k; do { k = ranNo(); } while(a[k][3] !== 0); a[k][3] = inTile; }
+        } else if (dir === 'up') {
+          for (let i = 1; i < 4; i++) for (let j = 0; j < 4; j++) { if (canMerge(a[i][j], a[i-1][j])) { if (exec) { const [nv, mv] = merge(a[i][j], a[i-1][j]); a[i][j] = nv; a[i-1][j] = mv; } moved++; } }
+          if (exec && moved > 0) { let k; do { k = ranNo(); } while(a[3][k] !== 0); a[3][k] = inTile; }
+        } else if (dir === 'down') {
+          for (let i = 2; i >= 0; i--) for (let j = 0; j < 4; j++) { if (canMerge(a[i][j], a[i+1][j])) { if (exec) { const [nv, mv] = merge(a[i][j], a[i+1][j]); a[i][j] = nv; a[i+1][j] = mv; } moved++; } }
+          if (exec && moved > 0) { let k; do { k = ranNo(); } while(a[0][k] !== 0); a[0][k] = inTile; }
+        }
+        if (!exec) return moved > 0;
+        if (moved === 0) println("Can't Move " + dir.charAt(0).toUpperCase() + dir.slice(1));
+        return moved > 0;
+      }
+
+      println("Welcome to THREES!!!");
+      await readLine("Press Enter to Play");
+      cls();
+      display();
+      let m = true;
+      do {
+        if (m) inTile = Math.floor(Math.random() * 3) + 1;
+        println("Next Tile : " + inTile);
+        const k = (await readLine("Shift (w/s/a/d) ? :")).charAt(0).toLowerCase();
+        cls();
+        switch (k) {
+          case 'd': m = moveDir('right', true); break;
+          case 'a': m = moveDir('left', true); break;
+          case 'w': m = moveDir('up', true); break;
+          case 's': m = moveDir('down', true); break;
+          default: println("Incorrect Input!"); m = false;
+        }
+        display();
+      } while (moveDir('right', false) || moveDir('left', false) || moveDir('up', false) || moveDir('down', false));
+      println("Game Over");
+      let sc = 0;
+      for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+        if (arr[i][j] >= 3) { const tl = Math.floor(Math.log2(arr[i][j] / 3)); sc += Math.pow(3, tl + 1); }
+      }
+      println("Score : " + sc);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 6. COWS AND BULLS
+    // ═══════════════════════════════════════════════════════════════
+    async function cowsAndBulls() {
+      const wordList = "abedabetableablyacedacesacheachyacidacmeacneacreactsaditadzeaeroagedageragesakinalecalesbailbaitbakebaldbalebalkbalmbandbanebangrambraybrickbrimbrinebriskbrodebrokebulkbumpbunkburlburncabscagecakecalmcamecampcanecarbcardcareclaimclapclayclerkclimbclingclodcloneclosetcoalcoatcodecoincokecolacoldcomeconecorkcorecostcovedarkdartdatedealdeandeckdelmdenydeskdicedimediredivedoledomedonedorkdovedrabdragdramdrewdropdrugdrumdueldukedulldunedungduskdusteachearlearneasyedgeelanelmsendsepicexamexitfabsfacefactfadefailfairfakefamefangfarmfastfatefinefindfirefirmfishfiveflabflagflakflamflipflitflockfloeflowflueflutefoamfoilfoldfoldfolkfondfonefontfootfordforkformfortfoulfourfowlframefromfrostfrugfuelfullfumefundfunkfurlgaingalegameganggarbgategazegeldgemsgentgiftgildgiltgladglobglowglueglutgnatgoalgoatgoldgolfgonegoregourgrabgramgraygrimgringripgritgrokgrowgrubguardguildgulfgustgutshackhadehailhalfhalthamehanghardhareharkharmharphasphatehazeheadhealheaphearheatheckheftheldhelmhelphentherbherdherohindhinthirehitshivehoaxhockholdhomehonehoodhoophopehornhosthourhovehowlhugshulkhumphumshunkhunthurlhuskilexjabsjadejailjakejarljawsjeanjerkjestjibejiltjinkjivejoinjokejoltjudojukejumpjunkjuryjustkalekanekartkeepkelpkentkeptkernkeyskickkilnkindkingkirkkisskiteknitknobknocknotknowkulelabelackladslakelamblamelamplandlanelarklaselashlastlatelawnleadleafleakleanleapleftlendlenslentlestliftlikelimblimelimonlinelinkling linklistlitsliveloadloafloamloanlobslocklodeloftlogsloitlonelookloomlordlorelornloselostloudlovelowelucklumplurelurkmacemademagemailmainmakemalemanemapsmarcmaremarkmashmastmatemeadmeanmeltmendmenumeowmicemilkmindminemintmiremistmitemoanmoatmockmodemodsmoldmolemoltmonkmopemoremoremostmovemuchmulemusemushmustmutenaisnamenapenarknavenavyneatnecknestnewnewsnextnibsnicenickninenodenosenotenounobsoddsomitonceonlyopenorbitorcaovenoverpackpacepadipadspagepaalpailpainpairpalepalmparepartpastpathpawnpeakpealpeckpeerphewpierpikepilepinapinepinkpinspintpionpipeplaneplatplaypleapledplodplotplowplugplumpluspockpodspolepoltpondponyporeporkportposepostpourpratprayprimprizeprodprofpromprotprowprunepubspugspulppumppunkpuntpurepurlpushrackraftragirailrainrakeramprankraptrashrateravelrawsrazereadreamreapreckreedrestrichrideriferiftrigsrimerindripseriskriveroadroamroberocksroderoilroleroosroseroundrouproverubyruckruderugsruinrulerumprungrunsrushrusksacksagesailsalesaltsamesandsaneashsealseamseatseekselfsendsentserfsetasewersilksilosiltsimsingsinksiresitesizeSkimslabslamslapslatslaysledslewslimslipslotslowslugslursmewsnagsnapsnarsnipsnobsnotsoapsoarsobssocksodasoftsolesolosobsomesongsoonsophsortsoulsoursoyaspansparksparspasspinspitspotspryspudspunstabstagstarstawstaystemstorestopstowstubstudstylesucksuitswapswimtabstacktaletalktalltametangstanktapestarntarstarttaskteaktealteartemptendtermtesttidytiletimbtinetinttiretoadtoetoiltoketoletombtonetongtooktooltopitoretorntosstourtowtowntraytremtrigtrimtriptrodtrogtrottruetubetucktufttugstuliptunetungturfturkturntusktwintyketypeurgevainvainvantvasevasteltveinvendventveryvexvialvidsvievineviolvoidvoltvoicevowlwagewaitwakewalkwallwandwardwarewarkwarmwarnwarpwartwashwaspwavewaxywearwebsweldwellwentweptwestwhetwhinwhipwhistwickwidewifewildwiltwimpwindwinewingwinkwipewirewisewishwispwithwokewolfwombwonkwoodwordworkwormwornwoundwovewrapwrenwritwyleyawnyellyersyokezerozoiczonezonkzoom";
+
+      function checkValid(ss) {
+        if (ss.length !== 4) return false;
+        for (let i = 0; i < wordList.length; i += 4) {
+          if (wordList.substring(i, i + 4) === ss) return true;
+        }
+        return true; // Be lenient - accept any 4-letter word
+      }
+
+      function check(ss, kk) {
+        let b = 0, c = 0;
+        for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+          if (ss.charAt(i) === kk.charAt(j)) { if (i === j) b++; else c++; }
+        }
+        println("B-" + b + " C-" + c);
+        return b;
+      }
+
+      let mainK;
+      outer:
+      do {
+        cls();
+        println("Choose your option:");
+        println("1. Play Against Computer");
+        println("2. Play Multiplayer");
+        println("3. How to play");
+        println("4. Credits");
+        println("5. Exit");
+        let ch;
+        do {
+          ch = parseInt(await readLine("\nYour Choice :"));
+          if (ch < 1 || ch > 5) println("Wrong Input. Try Again");
+        } while (ch < 1 || ch > 5);
+
+        if (ch === 1) {
+          // Computer picks a word
+          const words4 = [];
+          for (let i = 0; i < wordList.length; i += 4) words4.push(wordList.substring(i, i + 4));
+          const ss = words4[Math.floor(Math.random() * words4.length)];
+          cls();
+          println("The Computer has Chosen his word.");
+          await readLine("Press Enter to continue");
+          cls();
+          println("(PLAYER)"); println("_ _ _ _");
+          let won = false, badCount = 0;
+          for (let i = 0; i < 10; i++) {
+            let kk;
+            do {
+              kk = (await readLine((i + 1) + ". ")).toLowerCase();
+              if (kk.length !== 4) { badCount++; if (badCount >= 5) { println("\n5 Incorrect Words Tried."); break; } println("Incorrect Word. Enter Again:"); }
+              else break;
+            } while (true);
+            if (badCount >= 5) break;
+            if (check(ss, kk) === 4) { won = true; break; }
+          }
+          println(won ? "Game won" : "Game lost");
+          println("Word- " + ss);
+        } else if (ch === 2) {
+          cls();
+          const ss = (await readLine("Enter 4 Letter Word (CHALLENGER): ")).toLowerCase();
+          cls();
+          println("(PLAYER)"); println("_ _ _ _");
+          let won = false, badCount = 0;
+          for (let i = 0; i < 10; i++) {
+            let kk;
+            do {
+              kk = (await readLine((i + 1) + ". ")).toLowerCase();
+              if (kk.length !== 4) { badCount++; if (badCount >= 5) { println("\n5 Incorrect Words Tried."); break; } println("Incorrect Word. Enter Again:"); }
+              else break;
+            } while (true);
+            if (badCount >= 5) break;
+            if (check(ss, kk) === 4) { won = true; break; }
+          }
+          println(won ? "Game won" : "Game lost");
+          println("Word- " + ss);
+        } else if (ch === 3) {
+          cls();
+          println("PLAYERS: 2  (Also known as: Word Mastermind)");
+          println("GOAL : Players take turns in trying to guess each other's word.");
+          println("\nHOW TO PLAY : \n");
+          println(" First player, the Chooser, thinks of a four-letter word which has no letter repeated");
+          println(" The other player, the Guesser, tries to guess it");
+          println(" B = letters correct in the right position");
+          println(" C = letters correct but in the wrong position");
+          println("\n Example: Word is LOVE");
+          println("  1. play -> B-0 C-1");
+          println("  2. able -> B-1 C-1");
+          println("  3. lost -> B-2 C-0");
+          println("  4. lose -> B-3 C-0");
+          println("  5. love -> B-4 C-0  Game won");
+        } else if (ch === 4) {
+          cls();
+          const creds = ["Produced by:", "Mayank Musaddi", "", "Written by:", "Mayank Musaddi", "", "Special Thanks:", "SabhyaSanchi Trivedi", "Sanchayan Rey", "Chandan Sir"];
+          for (const c of creds) { println(c); await sleep(200); }
+        } else if (ch === 5) { cls(); println("Thank You For Playing.."); break outer; }
+        println();
+        do {
+          mainK = (await readLine("Go back to the Main Menu (Y/N) :")).charAt(0).toUpperCase();
+          if (mainK !== 'Y' && mainK !== 'N') println("Wrong Input. Try Again");
+        } while (mainK !== 'Y' && mainK !== 'N');
+      } while (mainK === 'Y');
+    }
+
+    async function walkMan() {
+      let sp = 0, dn = 0, menuState = 0;
+      const r = 100;
+      const manF =  ["   ___    ", "  (._.)   ", " /|   |\\  ", "/ |___| \\", "  |   |   ", " _|   |_  "];
+      const manR =  ["   __    ", "  (._)   ", " /|  |   ", " ||__|\\  ", "  |  |   ", "  |_ |_  "];
+      const manL =  ["   __    ", "  (_.)   ", "  |  |\\  ", " /|__||  ", "  |  |   ", " _| _|   "];
+      const manB =  ["   ___    ", "  (___)   ", " /|   |\\  ", "/ |___| \\", "  |   |   ", " _|   |_ "];
+
+      const ss = " P R E S E N T I N G   T O   Y O U -";
+      const WM = [
+        "                                                                        ",
+        " I8,        8        ,8I            88  88         88                    ",
+        " `8b       d8b       d8'            88  88         \"\"                    ",
+        "  \"8,     ,8\"8,     ,8\"             88  88                               ",
+        "   Y8     8P Y8     8P  ,adPPYYba,  88  88   ,d8   88  8b,dPPYba,       ",
+        "   `8b   d8' `8b   d8'  \"\"     `Y8  88  88 ,a8\"    88  88P'   `\"8a      ",
+        "    `8a a8'   `8a a8'   ,adPPPPP88  88  8888[      88  88       88      ",
+        "     `8a8'     `8a8'    88,    ,88  88  88`\"Yba,   88  88       88      ",
+        "      `8'       `8'     `\"8bbdP\"Y8  88  88   `Y8a  88  88       88      ",
+        "                                                        aa,    ,88      ",
+        "                                                         \"Y8bbdP\"       "
+      ];
+      const nameLines = [
+        "                                                       ",
+        "                                                       ",
+        "                                   |\\/|   / | \\|/   /| |\\|| ||//",
+        "      M A D E   B Y  -             |       '|  /   !   |  \\     /   /   !  | |       '|||      <",
+        "                                   |__|\\/|__| /___/|__|   |____|  /___/|_| |___|\\___| |___|\\___\\",
+        "                                                       ",
+        "                                                       "
+      ];
+      const PlayArt = [
+        "    _                        ___     _              _  _ ",
+        "   / |              o O O   | _ \\   | |    __ _    | || |",
+        "   | |      _      o        |  _/   | |   / _` |    \\_, |",
+        "  _|_|_   _(_)_   TS__[O]  _|_|_   _|_|_  \\__,_|   _|__/ ",
+        "_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_| \"\" \"|_|\"\"\"\"\"|_|\"\"\"\"\"|_| \"\"\"\"|",
+        "\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'"
+      ];
+      const OptionsArt = [
+        "   ___                      ___     _ __    _        _                   ",
+        "  |_  )             o O O  / _ \\   | '_ \\  | |_     (_)     ___    _ _  ",
+        "   / /      _      o      | (_) |  | .__/  |  _|    | |    / _ \\  | ' \\ ",
+        "  /___|   _(_)_   TS__[O]  \\___/   |_|__   _\\__|   _|_|_   \\___/  |_||_|",
+        "_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ",
+        "\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'"
+      ];
+      const CreditsArt = [
+        "   ____                     ___                       _      _      _   ",
+        "  |__ /             o O O  / __|     _ _    ___    __| |    (_)    | |_ ",
+        "   |_ \\     _      o      | (__     | '_|  / -_)  / _` |    | |    |  _|",
+        "  |___/   _(_)_   TS__[O]  \\___|   _|_|_   \\___|  \\__,_|   _|_|_   _\\__|",
+        "_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ",
+        "\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'"
+      ];
+      const ExitArt = [
+        "  _ _                       ___              _      _    ",
+        " | | |              o O O  | __|   __ __    (_)    | |_  ",
+        " |_  _|     _      o       | _|    \\ \\ /    | |    |  _| ",
+        "  _|_|_   _(_)_   TS__[O]  |___|   /_\\_\\   _|_|_   _\\__| ",
+        "_|\"\"\"\"\"|_|\"\"\"\"\"| {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ",
+        "\"`-0-0-'\"`-0-0-'./o--000'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'"
+      ];
+
+      // Typewriter print
+      async function printchar(text) {
+        for (let i = 0; i < text.length; i++) {
+          print(text.charAt(i));
+          await sleep(r / 5);
+        }
+        println();
+      }
+
+      // Drift down animation
+      async function driftDown(arr) {
+        for (let i = 0; i < arr.length; i++) {
+          cls();
+          println(ss);
+          println();
+          for (let j = arr.length - i - 1; j < arr.length; j++) println(arr[j]);
+          await sleep(r);
+        }
+      }
+
+      // Walking preface with name reveal
+      async function walkRightP(steps) {
+        let c = 0;
+        const w1 = ["", "  /\\_", " (_')", " |/ |", " /_ |\\", "  /\\", " /_ \\_"];
+        const w2 = ["", "  /\\_", " (_')", " || |", " ||_|", "  /|", " |_|_"];
+        const w3 = ["", "  /\\_", " (_')", " | \\|", "/|__\\", "  /|", " /_|_"];
+        const frames = [w1, w2, w3, w2];
+
+        for (let i = 0; i < steps; i++) {
+          for (const frame of frames) {
+            cls();
+            println(ss);
+            println();
+            for (const line of WM) println(line);
+            println();
+            for (let k = 0; k < frame.length; k++) {
+              const namePart = nameLines[k] ? nameLines[k].substring(0, Math.min(c, nameLines[k].length)) : '';
+              println(namePart + frame[k]);
+            }
+            c++;
+            await sleep(3 * r / 5);
+          }
+        }
+      }
+
+      // Menu drift-in animation (right to left)
+      function printMenuParts(parts) {
+        cls();
+        for (const part of parts) {
+          for (const line of part) println(line);
+        }
+      }
+
+      async function menuIn() {
+        cls();
+        const allParts = [PlayArt, OptionsArt, CreditsArt, ExitArt];
+        const displayed = [];
+        for (const part of allParts) {
+          // Slide in from right
+          const maxLen = Math.max(...part.map(l => l.length));
+          for (let col = 1; col <= maxLen; col += 3) {
+            cls();
+            for (const prev of displayed) { for (const line of prev) println(line); }
+            for (const line of part) println(line.substring(Math.max(0, line.length - col)));
+            await sleep(15);
+          }
+          displayed.push(part);
+        }
+      }
+
+      // Menu drift-out animation (left)
+      async function menuOut() {
+        const allParts = [PlayArt, OptionsArt, CreditsArt, ExitArt];
+        for (let p = allParts.length - 1; p >= 0; p--) {
+          const maxLen = Math.max(...allParts[p].map(l => l.length));
+          for (let col = 0; col <= maxLen; col += 3) {
+            cls();
+            for (let q = 0; q < p; q++) { for (const line of allParts[q]) println(line); }
+            for (const line of allParts[p]) println(line.substring(Math.min(col, line.length)));
+            await sleep(15);
+          }
+        }
+      }
+
+      // Credits animation
+      async function credits() {
+        const creditLines = [
+          "              ******************************************************************************************",
+          "",
+          "              *                                      Produced by:                                      *",
+          "              *                                     Mayank Musaddi                                     *",
+          "",
+          "              *                                       Written by:                                      *",
+          "              *                                     Mayank Musaddi                                     *",
+          "",
+          "              *                                       Edited by:                                       *",
+          "              *                                     Mayank Musaddi                                     *",
+          "",
+          "              *                                   Supervising Editor:                                  *",
+          "              *                                     Suyash Musaddi                                     *",
+          "",
+          "              *                                   Additional Graphics:                                 *",
+          "              *                                     Mayank Musaddi                                     *",
+          "",
+          "              *                                     Special Thanks:                                    *",
+          "              *                                   SabhyaSanchi Trivedi                                 *",
+          "              *                                     Sanchayan Rey                                      *",
+          "",
+          "",
+          "              *                                       THANK YOU                                        *",
+          "",
+          "              ******************************************************************************************",
+        ];
+        const visibleRows = 20;
+        for (let i = 0; i <= visibleRows + creditLines.length; i++) {
+          cls();
+          let m = Math.max(0, i - visibleRows);
+          for (let j = 0; j < visibleRows; j++) {
+            if (m > creditLines.length - 1) println();
+            else if (j > visibleRows - 1 - i) println(creditLines[m++]);
+            else println();
+          }
+          await sleep(3 * r / 5);
+        }
+      }
+
+      function printScreen(arr) {
+        cls();
+        for (let j = 0; j < Math.max(0, dn); j++) println();
+        for (let i = 0; i < arr.length; i++) {
+          let pad = '';
+          for (let j = 0; j < Math.max(0, sp); j++) pad += ' ';
+          println(pad + arr[i]);
+        }
+      }
+
+      async function walkFront(steps) {
+        const manF1 = ["   ___    ", "  (._.)   ", " /|   |\\  ", "/ |___| \\", "  |   |   ", "  |   |_  ", " _|      "];
+        const manF2 = ["   ___    ", "  (._.)   ", " /|   |\\  ", "/ |___| \\", "  |   |   ", " _|   |  ", "      |_ "];
+        for (let i = 0; i < steps; i++) {
+          printScreen(manF); await sleep(r);
+          printScreen(manF1); dn++; await sleep(r);
+          printScreen(manF); await sleep(r);
+          printScreen(manF2); dn++; await sleep(r);
+        }
+        printScreen(manF); await sleep(r);
+      }
+
+      async function walkRight(steps) {
+        const manR1 = ["   __    ", "  (._)   ", "  || |   ", "  ||_|   ", "   /|    ", "  |_|_   "];
+        const manR2 = ["   __    ", "  (._)   ", "  | \\|  ", " /|_ \\  ", "   /|    ", "  /_|_   "];
+        const manR3 = ["   __    ", "  (._)   ", "  |/ |   ", "  /__|   ", "   /|    ", "  |_|_   "];
+        const manR4 = ["   __    ", "  (._)   ", " /|  |   ", "/ |_ |\\  ", "   |\\   ", "  /_ \\_ "];
+        printScreen(manF); await sleep(r);
+        printScreen(manR); sp++; await sleep(r);
+        for (let i = 0; i < steps; i++) {
+          printScreen(manR1); sp++; await sleep(r);
+          printScreen(manR2); sp++; await sleep(r);
+          printScreen(manR3); sp++; await sleep(r);
+          printScreen(manR4); sp++; await sleep(r);
+        }
+        printScreen(manR); sp++; await sleep(r);
+        printScreen(manF); await sleep(r);
+      }
+
+      async function walkLeft(steps) {
+        const manL1 = ["   __    ", "  (_.)   ", "  | ||   ", "  |_||   ", "   |\\   ", "  _|_|   "];
+        const manL2 = ["   __    ", "  (_.)   ", "  |/ |   ", "  / _|\\  ", "   |\\   ", "  _|_\\  "];
+        const manL3 = ["   __    ", "  (_.)   ", "  | \\|  ", "  |__\\  ", "   |\\   ", "  _|_|   "];
+        const manL4 = ["   __    ", "  (_.)   ", "  |  |\\  ", " /| _| \\", "   /|    ", " _/ _\\  "];
+        printScreen(manF); await sleep(r);
+        printScreen(manL); sp--; await sleep(r);
+        for (let i = 0; i < steps; i++) {
+          printScreen(manL1); sp--; await sleep(r);
+          printScreen(manL2); sp--; await sleep(r);
+          printScreen(manL3); sp--; await sleep(r);
+          printScreen(manL4); sp--; await sleep(r);
+        }
+        printScreen(manL); sp--; await sleep(r);
+        printScreen(manF); await sleep(r);
+      }
+
+      async function walkBack(steps) {
+        const manB1 = ["   ___    ", "  (___)   ", " /|   |\\  ", "/ |___| \\", "  |   |_ ", " _|      "];
+        const manB2 = ["   ___    ", "  (___)   ", " /|   |\\  ", "/ |___| \\", " _|   |  ", "      |_ "];
+        printScreen(manF); await sleep(r);
+        printScreen(manL); await sleep(r);
+        for (let i = 0; i < steps; i++) {
+          printScreen(manB); await sleep(r);
+          printScreen(manB1); dn--; await sleep(r);
+          printScreen(manB); await sleep(r);
+          printScreen(manB2); dn--; await sleep(r);
+        }
+        printScreen(manB); await sleep(r);
+        printScreen(manR); await sleep(r);
+        printScreen(manF); await sleep(r);
+      }
+
+      // === PREFACE ANIMATION ===
+      await printchar(ss);
+      await sleep(500);
+      await driftDown(WM);
+      await walkRightP(20);
+      await sleep(500);
+
+      // === MAIN LOOP ===
+      let k;
+      outer:
+      do {
+        cls();
+        await menuIn();
+        println();
+        await printchar("E N T E R   Y O U R   C H O I C E - ");
+        let ch;
+        do {
+          ch = parseInt(await readLine());
+          if (ch < 1 || ch > 4) println("Wrong Input. Try Again");
+        } while (ch < 1 || ch > 4);
+        await menuOut();
+
+        switch (ch) {
+          case 1: // Play
+            sp = 0; dn = 0;
+            await walkFront(0);
+            while (true) {
+              println("Move in Direction(R/L/F/B) ? Exit(X)");
+              const d = (await readLine()).charAt(0).toUpperCase();
+              if (d === 'X') break;
+              const n = parseInt(await readLine("Number of Steps ? "));
+              if (isNaN(n) || n < 1) { println("Invalid number"); continue; }
+              switch (d) {
+                case 'R': await walkRight(n); break;
+                case 'L': await walkLeft(n); break;
+                case 'F': await walkFront(n); break;
+                case 'B': await walkBack(n); break;
+                default: println("Invalid direction");
+              }
+            }
+            cls();
+            await credits();
+            break;
+          case 2: // Options
+            cls();
+            await printchar("S O R R Y . . .");
+            await printchar("T H I S   P A G E   I S   U N D E R   C O N S T R U C T I O N S . . . . . . . ");
+            break;
+          case 3: // Credits
+            await credits();
+            break;
+          case 4: // Exit
+            cls();
+            println("");
+            println("\t ***********************************************");
+            println("\t*\t\t\t\t\t\t*");
+            println("\t*           Thank you for playing               *");
+            println("\t*      You can try out our other games :        *");
+            println("\t*\t           BlackJack         \t        *");
+            println("\t*\t\t Cows and Bulls\t         \t*");
+            println("\t*                 Tic-Tac-Toe                   *");
+            println("\t*                                               *");
+            println("\t ***********************************************");
+            break outer;
+        }
+        println();
+        do {
+          k = (await readLine("Go back to the Main Menu (Y/N) :")).charAt(0).toUpperCase();
+          if (k !== 'Y' && k !== 'N') println("Wrong Input. Try Again");
+        } while (k !== 'Y' && k !== 'N');
+      } while (k === 'Y');
+      cls();
+      println("");
+      println("\t ***********************************************");
+      println("\t*\t\t\t\t\t\t*");
+      println("\t*           Thank you for playing               *");
+      println("\t*      You can try out our other games :        *");
+      println("\t*\t           BlackJack         \t        *");
+      println("\t*\t\t Cows and Bulls\t         \t*");
+      println("\t*                 Tic-Tac-Toe                   *");
+      println("\t*                                               *");
+      println("\t ***********************************************");
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 8. ELEVATOR
+    // ═══════════════════════════════════════════════════════════════
+    async function elevator() {
+      function printLift(num) {
+        println("   ___");
+        println("   |" + num + "|");
+        println(" -------");
+        println("|   |   |");
+        println("|   |   |");
+        println("|   |   |");
+        println(" -------");
+      }
+
+      async function animateGo(start, stop) {
+        const dir = stop > start ? 1 : -1;
+        let floor = start;
+        while (floor !== stop) {
+          cls();
+          println("Please wait while the elevator is moving...");
+          for (let i = 0; i < (10 - floor) * 2; i++) println();
+          printLift(floor > 0 ? floor : "G");
+          await sleep(300);
+          floor += dir;
+        }
+        cls();
+        for (let i = 0; i < (10 - floor) * 2; i++) println();
+        printLift(floor > 0 ? floor : "G");
+      }
+
+      async function animateOpen(num) {
+        const frames = ["|   |   |", "||     ||", "| |   | |", "|  | |  |", "|       |"];
+        for (const frame of frames) {
+          cls();
+          for (let i = 0; i < (10 - num) * 2; i++) println();
+          println("   ___");
+          println("   |" + (num > 0 ? num : "G") + "|");
+          println(" -------");
+          println(frame); println(frame); println(frame);
+          println(" -------");
+          await sleep(200);
+        }
+      }
+
+      async function animateClose(num) {
+        const frames = ["|       |", "||     ||", "| |   | |", "|  | |  |", "|   |   |"];
+        for (const frame of frames) {
+          cls();
+          for (let i = 0; i < (10 - num) * 2; i++) println();
+          println("   ___");
+          println("   |" + (num > 0 ? num : "G") + "|");
+          println(" -------");
+          println(frame); println(frame); println(frame);
+          println(" -------");
+          await sleep(200);
+        }
+      }
+
+      let num = 0;
+      cls();
+      println("The lift is on floor G");
+      printLift("G");
+
+      const flr = await readLine("Which floor are you on?[G-9] ");
+      let floor;
+      if (flr.toUpperCase() === 'G') floor = 0;
+      else if (/^\d$/.test(flr)) floor = parseInt(flr);
+      else { println("\nYa we'll create that floor in your dad's building!"); return; }
+
+      await animateGo(num, floor);
+      num = floor;
+      await animateOpen(num);
+      println("Are you waiting for Christmas? Enter man!");
+      await sleep(800);
+      await animateClose(num);
+
+      const dest = await readLine("\nWhere to, Boss?[G-9] ");
+      let destFloor;
+      if (dest.toUpperCase() === 'G') destFloor = 0;
+      else destFloor = parseInt(dest);
+      if (destFloor >= 0 && destFloor < 10) {
+        let msg;
+        if (Math.abs(destFloor - num) === 1) msg = "Next time take the stairs to travel 1 floor you sloth";
+        else if (destFloor === num) msg = "ARE YOU HERE TO TEST MY OPENING/CLOSING SYSTEM? GET OUT!";
+        else msg = "Chillax man you'll reach there faast";
+        println(msg);
+        await animateGo(num, destFloor);
+        num = destFloor;
+        await animateOpen(num);
+        println("Do I have to call security? LEAVE!");
+        await sleep(800);
+        await animateClose(num);
+        println("\nOK..see ya laterrr!");
+        await sleep(500);
+        cls();
+        println("The lift is on floor " + (num > 0 ? num : "G"));
+        printLift(num > 0 ? String(num) : "G");
+      } else {
+        cls();
+        printLift(flr);
+        println("\nWanna blow off the roof? I won't open the door..You're stuck!");
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // BOOT
+    // ═══════════════════════════════════════════════════════════════
+    mainMenu();
+  </script>
+</body>
+</html>

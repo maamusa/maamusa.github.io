@@ -6,4 +6,8 @@ tags:
   - Personal
   - Music
 ---
-I thought I will start in a brutally honest note. This is a blog to garner more views :P. As you have the keywords Google journey and how to crack Google, suddenly a lot of eyes turn. However, let's face the brute reality, Google is   
+I thought I will start in a brutally honest note. This is a blog to garner more views :P. As you have the keywords Google journey and how to crack Google, suddenly a lot of eyes turn. However, let's face the brute reality, Google is not as glamorous as it seems. 
+
+Contrast between the work of Sprinklr and Google
+Google Interview Process
+Childhood dream - how I picked coding
