@@ -139,7 +139,7 @@
   <div id="terminal"></div>
   <div class="input-line">
     <span class="prompt">❯</span>
-    <input id="input" type="text" autofocus autocomplete="off" spellcheck="false" />
+    <input id="input" type="text" autocomplete="off" spellcheck="false" />
   </div>
 
   <script>
@@ -179,10 +179,21 @@
     function sleep(ms) {
       return new Promise(r => setTimeout(r, ms));
     }
+    // Track whether the game area is visible in the viewport
+    let isGameVisible = false;
+    const observer = new IntersectionObserver((entries) => {
+      isGameVisible = entries[0].isIntersecting;
+    }, { threshold: 0.1 });
+    observer.observe(document.body);
+
+    function focusInput() {
+      if (isGameVisible) inputEl.focus();
+    }
+
     function readLine(prompt = '') {
       if (prompt) print(prompt);
       inputEl.value = '';
-      inputEl.focus();
+      focusInput();
       return new Promise(resolve => {
         inputResolve = resolve;
       });
@@ -200,7 +211,7 @@
     });
 
     // Click anywhere to focus input
-    document.addEventListener('click', () => inputEl.focus());
+    document.addEventListener('click', () => { focusInput(); });
 
     // ═══════════════════════════════════════════════════════════════
     // MAIN MENU

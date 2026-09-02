@@ -53,7 +53,7 @@ Instead of studying, all my time was poured into programming. In school, our Jav
 *Here's a fun detour: with the help of Claude, the very terminal games my friends and I built in Java during our school days are now playable right here in the browser! Pick a game from the menu below and have fun.*
 
 <div style="width: 75vw; max-width: 950px; position: relative; left: 50%; transform: translateX(-50%); margin: 2rem 0;">
-<iframe src="/games/terminal.html" width="100%" height="700" style="border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden;"></iframe>
+<iframe src="/games/terminal.html" width="100%" height="700" loading="lazy" tabindex="-1" style="border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); overflow: hidden;"></iframe>
 </div>
 
 **Reality checks...**
