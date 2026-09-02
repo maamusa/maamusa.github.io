@@ -11,8 +11,6 @@ image:
   alt: "Dreaming from the Inside"
 ---
 
-![](/assets/posts/switchboard-cat.png)
-
 Have you ever been so obsessed with a subject that it starts appearing in your dreams?
 
 For me, this has happened multiple times — and strangely, those dreams have often helped me solve problems I couldn't crack while awake. I remember in my 11th standard, I was trying to build a Java-based ASCII game and had been stuck on the implementation for days. I thought about it relentlessly — during class, during dinner, while staring at the ceiling before sleep. And then one night, the solution simply appeared in my dream. I woke up, wrote it down, and it worked. Weird, right?
