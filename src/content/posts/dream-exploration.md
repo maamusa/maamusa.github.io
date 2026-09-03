@@ -7,9 +7,11 @@ tags:
   - Personal
   - Philosophy
 image:
-  url: "/assets/posts/switchboard-cat.png"
-  alt: "Dreaming from the Inside"
+  url: "/assets/posts/dreamy-cat.png"
+  alt: "Dreamy Cat"
 ---
+
+![Dreamy Cat](/assets/posts/dreamy-cat.png)
 
 Have you ever been so obsessed with a subject that it starts appearing in your dreams?
 
