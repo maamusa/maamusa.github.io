@@ -47,10 +47,7 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
               remarkPluginFrontmatter.minutesRead
             }
           </p>
-          <div class="flex items-center gap-2">
-            <PostControls />
-            <ReactionButtons pageId={entry.id} />
-          </div>
+          <PostControls />
         </div>
       </div>
     </div>
@@ -60,7 +57,8 @@ const { Content, remarkPluginFrontmatter } = await render(entry);
     >
       <Content />
     </article>
-    
-    <Comments pageId={entry.id} pageUrl={`https://maamusa.co/posts/${entry.id}`} pageTitle={entry.data.title} />
+
+    <ReactionButtons pageId={entry.id} />
+    <Comments pageId={entry.id} />
   </section>
 </Layout>

@@ -1,37 +1,252 @@
 ---
 interface Props {
   pageId: string;
-  pageUrl: string;
-  pageTitle: string;
 }
-const { pageId, pageUrl, pageTitle } = Astro.props;
+const { pageId } = Astro.props;
 ---
 
-<div class="mt-16 pt-8 border-t border-white/10">
-  <div
-    id="cusdis_thread"
-    class="min-h-[400px]"
-    data-host="https://cusdis.com"
-    data-app-id="937b9b9e-908f-4ece-820f-bc7ec1439491"
-    data-page-id={pageId}
-    data-page-url={pageUrl}
-    data-page-title={pageTitle}
-    data-theme="dark"
-  >
+<div
+  class="mt-10 pt-8 border-t border-neutral-500/10"
+  id="comments-section"
+  data-page-id={pageId}
+>
+  <h3 class="font-semibold text-lg mb-6">Comments</h3>
+
+  <div id="comments-list">
+    <p id="comments-status" class="text-sm opacity-40 py-2">
+      Loading comments...
+    </p>
   </div>
-  <script is:inline>
-    // Ensure Cusdis theme matches the site's current theme on load
-    const cusdisThread = document.getElementById("cusdis_thread");
-    if (cusdisThread) {
-      const isDark = document.documentElement.classList.contains("dark");
-      cusdisThread.setAttribute("data-theme", isDark ? "dark" : "light");
-    }
-  </script>
-  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+  <div class="mt-8 pt-6 border-t border-neutral-500/10">
+    <h4 class="text-sm font-medium mb-4 opacity-50">Leave a comment</h4>
+    <input
+      id="comment-author"
+      type="text"
+      placeholder="Name (optional)"
+      maxlength="100"
+      class="comment-input w-full px-3 py-2 mb-3 text-sm rounded-lg border bg-transparent placeholder:opacity-30 focus:outline-none transition-colors"
+    />
+    <textarea
+      id="comment-text"
+      placeholder="Share your thoughts..."
+      maxlength="2000"
+      rows="3"
+      class="comment-input w-full px-3 py-2 text-sm rounded-lg border bg-transparent placeholder:opacity-30 focus:outline-none transition-colors resize-none"
+    ></textarea>
+    <div class="flex items-center justify-between mt-3">
+      <p id="comment-feedback" class="text-xs opacity-50"></p>
+      <button
+        id="comment-submit"
+        class="comment-submit-btn px-4 py-1.5 text-sm font-medium rounded-lg border transition-all duration-200 cursor-pointer bg-transparent"
+      >
+        Post Comment
+      </button>
+    </div>
+  </div>
 </div>
 
-<style is:global>
-  #cusdis_thread iframe {
-    min-height: 400px !important;
+<script>
+  import { db } from "../lib/firebase";
+  import {
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    where,
+    serverTimestamp,
+  } from "firebase/firestore";
+
+  function initComments() {
+    const section = document.getElementById("comments-section");
+    if (!section) return;
+
+    const pageId = section.dataset.pageId!;
+    const listEl = document.getElementById("comments-list")!;
+    const statusEl = document.getElementById("comments-status")!;
+    const authorInput = document.getElementById(
+      "comment-author"
+    ) as HTMLInputElement;
+    const textInput = document.getElementById(
+      "comment-text"
+    ) as HTMLTextAreaElement;
+    const submitBtn = document.getElementById(
+      "comment-submit"
+    ) as HTMLButtonElement;
+    const feedbackEl = document.getElementById("comment-feedback")!;
+
+    const rateLimitKey = `comment_cooldown_${pageId}`;
+
+    function escapeHtml(text: string): string {
+      const el = document.createElement("span");
+      el.textContent = text;
+      return el.innerHTML;
+    }
+
+    function formatDate(timestamp: any): string {
+      if (!timestamp || !timestamp.toDate) return "Just now";
+      const date = timestamp.toDate();
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    function renderComment(data: any): HTMLElement {
+      const author = data.author || "Anonymous";
+      const initial = author.charAt(0).toUpperCase();
+      const date = formatDate(data.created_at);
+
+      const el = document.createElement("div");
+      el.className =
+        "comment-item flex items-start gap-3 py-4";
+      el.innerHTML = `
+        <div class="comment-avatar w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium opacity-60 shrink-0 mt-0.5 select-none">${escapeHtml(initial)}</div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="text-sm font-medium">${escapeHtml(author)}</span>
+            <span class="text-xs opacity-35">${date}</span>
+          </div>
+          <p class="text-sm opacity-65 leading-relaxed whitespace-pre-wrap break-words">${escapeHtml(data.text)}</p>
+        </div>
+      `;
+      return el;
+    }
+
+    async function loadComments() {
+      try {
+        const q = query(
+          collection(db, "comments"),
+          where("page_id", "==", pageId)
+        );
+        const snapshot = await getDocs(q);
+
+        const comments: any[] = [];
+        snapshot.forEach((docSnap) => {
+          comments.push(docSnap.data());
+        });
+
+        // Sort by created_at descending (client-side to avoid composite index requirement)
+        comments.sort((a, b) => {
+          const aTime = a.created_at?.toMillis?.() || 0;
+          const bTime = b.created_at?.toMillis?.() || 0;
+          return bTime - aTime;
+        });
+
+        listEl.innerHTML = "";
+
+        if (comments.length === 0) {
+          statusEl.textContent =
+            "No comments yet. Be the first to share your thoughts!";
+          listEl.appendChild(statusEl);
+        } else {
+          comments.forEach((comment) => {
+            listEl.appendChild(renderComment(comment));
+          });
+        }
+      } catch (e) {
+        console.error("Error loading comments:", e);
+        statusEl.textContent = "Could not load comments.";
+        listEl.innerHTML = "";
+        listEl.appendChild(statusEl);
+      }
+    }
+
+    loadComments();
+
+    async function submitComment() {
+      const text = textInput.value.trim();
+      if (!text) {
+        feedbackEl.textContent = "Please write a comment.";
+        return;
+      }
+
+      // Rate limit: 1 comment per 60 seconds per page
+      const lastComment = localStorage.getItem(rateLimitKey);
+      if (lastComment && Date.now() - parseInt(lastComment) < 60000) {
+        const remaining = Math.ceil(
+          (60000 - (Date.now() - parseInt(lastComment))) / 1000
+        );
+        feedbackEl.textContent = `Please wait ${remaining}s before commenting again.`;
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Posting...";
+      feedbackEl.textContent = "";
+
+      try {
+        const author = authorInput.value.trim() || "Anonymous";
+
+        await addDoc(collection(db, "comments"), {
+          page_id: pageId,
+          author: author,
+          text: text,
+          created_at: serverTimestamp(),
+        });
+
+        localStorage.setItem(rateLimitKey, Date.now().toString());
+
+        textInput.value = "";
+        authorInput.value = "";
+        feedbackEl.textContent = "Comment posted!";
+
+        // Reload comments to show the new one
+        await loadComments();
+
+        setTimeout(() => {
+          feedbackEl.textContent = "";
+        }, 3000);
+      } catch (e) {
+        console.error("Error posting comment:", e);
+        feedbackEl.textContent = "Failed to post. Please try again.";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Post Comment";
+      }
+    }
+
+    submitBtn.addEventListener("click", submitComment);
+
+    // Cmd/Ctrl + Enter to submit
+    textInput.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        submitComment();
+      }
+    });
+  }
+
+  initComments();
+</script>
+
+<style>
+  .comment-input {
+    border-color: rgb(115 115 115 / 0.2);
+  }
+
+  .comment-input:focus {
+    border-color: rgb(115 115 115 / 0.5);
+  }
+
+  .comment-submit-btn {
+    border-color: rgb(115 115 115 / 0.3);
+  }
+
+  .comment-submit-btn:hover {
+    background-color: rgb(115 115 115 / 0.1);
+  }
+
+  .comment-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .comment-avatar {
+    background-color: rgb(115 115 115 / 0.1);
+  }
+
+  .comment-item + .comment-item {
+    border-top: 1px solid rgb(115 115 115 / 0.1);
   }
 </style>
