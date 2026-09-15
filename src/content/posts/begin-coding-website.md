@@ -1,5 +1,5 @@
 ---
-title: "How I Built This Blog Using AI Prompts (And You Can Too)"
+title: "Steal My $0 Personal Blog Setup"
 description: "A non-technical guide to setting up a fully free, modern blogging website using Antigravity, Claude, and simple prompts."
 pubDate: 2026-09-13
 author: Mayank Musaddi
